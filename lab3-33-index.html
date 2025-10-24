@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>叶语书斋</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; 
+        }
+        body {
+            line-height: 1.6;
+            color: #333;
+            background: #f9f5f5;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer; 
+        }
+        ul {
+            list-style: none;
+        }
+        .header {
+            width: 100%;
+            height: 60px;
+            background: #c93838; 
+            overflow: hidden;
+        }
+        .logo {
+            float: left;
+            padding: 0 20px;
+            line-height: 60px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+        }
+        .main-nav {
+            float: left;
+        }
+        .main-nav ul li {
+            float: left;
+            line-height: 60px;
+            padding: 0 15px;
+            position: relative; 
+            color: #fff;
+        }
+        .main-nav ul li:hover {
+            background: #a62c2c;
+        }
+        .main-container {
+            width: 95%;
+            max-width: 1500px;
+            margin: 20px auto;
+            overflow: hidden; 
+        }
+        .left-column {
+            width: 22%;
+            float: left;
+            background: #fff;
+            border: 1px solid #e0b8b8; 
+            padding: 20px;
+            position: relative;
+        }
+        .category-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #c93838;
+            color: #c93838;
+        }
+        .category-nav li {
+            margin: 10px 0;
+            padding-left: 10px;
+        }
+        .category-nav li a {
+            color: #555;
+        }
+        .category-nav li:hover a {
+            color: #c93838; 
+        }
+        .middle-column {
+            width: 54%;
+            float: left;
+            margin: 0 2%;
+        }
+        .banner {
+            width: 100%;
+            border: 1px solid #e0b8b8;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .banner img {
+            width: 100%;
+            display: block;
+        }
+        .hot-section {
+            background: #fff;
+            border: 1px solid #e0b8b8;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .hot-section h3 {
+            color: #c93838;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f0d9d9;
+            margin-bottom: 15px;
+        }
+        .card-list {
+            overflow: hidden; 
+        }
+        .card {
+            width: 30%;
+            float: left;
+            margin: 1%;
+            background: #fff;
+            border: 1px solid #e0b8b8;
+            text-align: center;
+        }
+
+        .card img {
+            width: 100%;
+            display: block;
+            margin:auto;
+        }
+        .card h4 {
+            padding: 10px;
+            font-size: 16px;
+            color: #333;
+            text-align: center;
+        }
+        .price {
+            padding: 0 10px;
+            color: #c93838; 
+            font-weight: bold;
+            text-align: center;
+        }
+        .buy-btn {
+            width: 80%;
+            margin: 10px auto;
+            display: block;
+            padding: 8px 0;
+            border: 1px solid #c93838;
+            background: #f2cece;
+            color: #c93838;
+            cursor: pointer;
+        }
+        .new-section {
+            background: #fff;
+            border: 1px solid #e0b8b8;
+            padding: 20px;
+        }
+        .new-section h3 {
+            color: #c93838;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .new-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .new-table th, .new-table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #f0d9d9;
+        }
+        .new-table th {
+            background: #fce8e8;
+            color: #a62c2c;
+        }
+        .new-table img {
+            border-radius: 2px;
+        }
+        .promo-banner img {
+            width: 100%;
+            border: 1px solid #e0b8b8;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .promo-list, .service-box {
+            background: #fff;
+            border: 1px solid #e0b8b8;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .promo-list h3 {
+            color: #c93838;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #f0d9d9;
+        }
+        .promo-list ul li {
+            margin: 10px 0;
+            padding-left: 5px;
+        }
+        .promo-list ul li span {
+            color: #c93838;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        .service-box h4 {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #a62c2c;
+        }
+        .service-box p {
+            color: #555;
+            margin: 5px 0;
+        }
+        .right-column {
+            width: 20%;
+            float: right;
+        }
+        .promo-banner {
+            background: #fff;
+            border: 1px solid #e0b8b8;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <a href="#">🍁 叶语书斋</a>
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#">首页</a></li>
+                <li><a href="#">图书分类</a></li>
+                <li><a href="#">热门推荐</a></li>
+                <li><a href="#">限时促销</a></li>
+                <li><a href="#">我的书架</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="main-container">
+        <aside class="left-column">
+            <div class="category-title">
+                <h2>图书分类</h2>
+                <ul class="category-nav">
+                    <li><a href="#">文学小说</a></li>
+                    <li><a href="#">科技前沿</a></li>
+                    <li><a href="#">儿童读物</a></li>
+                    <li><a href="#">历史传记</a></li>
+                    <li><a href="#">生活艺术</a></li>
+                    <li><a href="#">摄影技巧</a></li>
+                    <li><a href="#">健康养生</a></li>
+                    <li><a href="#">旅游指南</a></li>
+                    <li><a href="#">职场提升</a></li>
+                    <li><a href="#">考试辅导</a></li>
+                    <li><a href="#">编程开发</a></li>
+                    <li><a href="#">心理励志</a></li>
+                </ul>
+            </div>
+            <div class="promo-list">
+                <h3>今日特惠</h3>
+                <ul>
+                    <li>编程书籍 <span>5折</span></li>
+                    <li>儿童绘本 <span>买一赠一</span></li>
+                    <li>文学经典 <span>满100减30</span></li>
+                    <li>历史传记 <span>7折起</span></li>
+                    <li>心理学书籍 <span>8折</span></li>
+                    <li>旅游指南 <span>满50减10</span></li>
+                    <li>健康养生 <span>6折</span></li>
+                </ul>
+            </div>
+            <div class="service-box">
+                <h4>客服中心</h4>
+                <p>📞 123-456-7890</p>
+                <p>🕒 9:00-22:00</p>
+            </div>
+        </aside>
+        <aside class="right-column">
+            <div class="promo-banner">
+                <img src="新用户有礼.png" alt="新用户有礼" />
+                <p>新用户注册即享专属优惠！</p>
+                <a href="#" class="btn">立即领取</a>
+                <p>活动时间：2025.10.01 - 2025.10.31</p>
+            </div>
+            <div class="promo-banner">
+                <img src="/双十一.png" alt="双十一" />
+                <p>双十一购物节，尽享全场特惠！</p>
+                <a href="#" class="btn">立即抢购</a>
+                <p>活动时间：2025.11.01 - 2025.11.11</p>
+            </div>
+        </aside>
+        <section class="middle-column">
+            <div class="banner">
+                <img src="新书上市.png" alt="新书上市" />
+            </div>
+            <div class="hot-section">
+                <h3>热门推荐</h3>
+                <div class="card-list">
+                    <div class="card">
+                        <img src="红与黑.jpg" style="width:180px;height:210px;" alt="图书1" />
+                        <h4>《红与黑》</h4>
+                        <p class="price">¥66.00</p>
+                        <button class="buy-btn">购买</button>
+                    </div>
+                    <div class="card">
+                        <img src="人间失格.jpg" style="width:180px;height:210px;" alt="图书2" />
+                        <h4>《人间失格》</h4>
+                        <p class="price">¥66.00</p>
+                        <button class="buy-btn">购买</button>
+                    </div>
+                    <div class="card">
+                        <img src="苦难辉煌.jpg" style="width:180px;height:210px;" alt="图书3" />
+                        <h4>《苦难辉煌》</h4>
+                        <p class="price">¥66.00</p>
+                        <button class="buy-btn">购买</button>
+                    </div>
+                </div>
+            </div>
+            <div class="new-section">
+                <h3>新书上市</h3>
+                <table class="new-table">
+                    <thead>
+                        <tr>
+                            <th>书名</th>
+                            <th>作者</th>
+                            <th>价格</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>《河边的错误》</td>
+                            <td>余华</td>
+                            <td>¥59.00</td>
+                        </tr>
+                        <tr>
+                            <td>《霍乱时期的爱情》</td>
+                            <td>加西亚·马尔克斯</td>
+                            <td>¥66.00</td>
+                        </tr>
+                        <tr>
+                            <td>《鳄鱼》</td>
+                            <td>莫言</td>
+                            <td>¥59.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
