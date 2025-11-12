@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>叶语书斋</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;padding: 0; box-sizing: border-box; 
+        }
+        body {
+            line-height: 1.6;  color: #333;  background: #f8f2f2; padding-top: 60px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        a {
+            text-decoration: none; color: inherit;  cursor: pointer;transition: color 0.2s;
+        }
+        a:hover {
+            color: #b32d2d;
+        }
+        ul {
+            list-style: none;
+        }
+        button, input, select, textarea {
+            font-family: inherit;
+        }
+        .header {
+            width: 100%;   height: 60px;  background: #b32d2d;  position: fixed;  top: 0;  left: 0;  z-index: 1000;  box-shadow: 0 2px 6px rgba(0,0,0,0.15);  display: flex;  align-items: center;  padding: 0 20px;
+        }
+        .logo {
+            line-height: 60px;  font-size: 24px;  font-weight: bold;  color: #fff;  margin-right: 40px;
+        }
+        .main-nav {
+            display: flex;  align-items: center;
+        }
+        .main-nav ul li {
+            float: left;   line-height: 60px;   padding: 0 15px;  position: relative;  color: #fff;  cursor: pointer;
+        }
+        .main-nav ul li:hover {
+            background: #992424;
+        }
+        .submenu {
+            position: absolute; top: 60px;  left: 0;  width: 180px;  background: rgba(179, 45, 45, 0.95);  display: none;   z-index: 1001; box-shadow: 0 4px 10px rgba(0,0,0,0.15); border-radius: 0 0 4px 4px;
+        }
+        .main-nav li:hover .submenu {
+            display: block;
+        }
+        .submenu li {
+            float: none;  line-height: 40px;  padding: 0 15px;
+        }
+        .submenu li:hover {
+            background: #801e1e;
+        }
+        .user-actions {
+            margin-left: 20px; display: flex; align-items: center; gap: 15px;
+        }
+        .login-btn, .register-btn, .subscribe-btn {
+            color: #fff; font-size: 14px; padding: 5px 10px; border-radius: 3px; transition: background 0.2s;
+        }
+        .login-btn:hover, .register-btn:hover, .subscribe-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .search-box {
+            margin-left: auto; display: flex; align-items: center; gap: 8px;
+        }
+        .search-input {
+            width: 240px;height: 36px; padding: 0 12px; border: none;  border-radius: 4px;  outline: none;  font-size: 14px;  background: #fce8e8; transition: all 0.3s;
+        }
+        .search-input:focus {
+            background: #fff;  box-shadow: 0 0 0 2px rgba(255,255,255,0.5); 
+        }
+        .search-btn {
+            height: 36px;  padding: 0 16px;  border: none;  border-radius: 4px; background: #992424;  color: #fff;  cursor: pointer;   font-size: 14px;  display: flex; align-items: center;  gap: 6px;transition: all 0.3s;
+        }
+        .search-btn:hover {
+            background: #801e1e; transform: scale(1.03);
+        }
+        .cart-float {
+            position: fixed; top: 80px;  right: 30px;  width: 50px;  height: 50px;  background: #fff;   border-radius: 50%;  display: flex;  align-items: center;  justify-content: center;  box-shadow: 0 4px 12px rgba(0,0,0,0.12);  z-index: 1000;  cursor: pointer; transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .cart-float:hover {
+            transform: scale(1.1);  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+        }
+        .cart-count {
+            position: absolute; top: -5px;  right: -5px; width: 20px;  height: 20px; background: #ff4d4d;  color: white; border-radius: 50%;  font-size: 12px;  text-align: center; line-height: 20px;  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .back-to-top {
+            position: fixed;   bottom: 30px; right: 30px;  width: 50px;  height: 50px;  background: #b32d2d;  color: white; border-radius: 50%;  display: none;  align-items: center;  justify-content: center;  cursor: pointer;z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.12);  transition: all 0.3s;
+        }
+        .back-to-top:hover {
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);  transform: scale(1.05);
+        }
+        .main-container {
+            width: 95%;   max-width: 1500px;   margin: 20px auto; overflow: hidden;  display: flex;   gap: 2%;
+        }
+        .left-column {
+            width: 20%;  background: #fff;  border: 1px solid #f0d9d9; padding: 20px;  box-shadow: 0 3px 8px rgba(0,0,0,0.08);  border-radius: 4px;
+        }
+        .category-title {
+            font-size: 18px; font-weight: bold;  margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #b32d2d;color: #b32d2d; text-align: center;
+        }
+        .filter-dropdown {
+            margin: 15px 0;  position: relative;
+        }
+        .filter-title {
+            padding: 8px 10px;  background: #fce8e8; cursor: pointer;  color: #992424;font-weight: bold;  border-radius: 4px;  box-shadow: 0 1px 3px rgba(0,0,0,0.05);  display: flex;  justify-content: space-between;  align-items: center;
+        }
+        .filter-title::after {
+            content: "▼"; font-size: 12px;  transition: transform 0.3s;
+        }
+        .filter-dropdown:hover .filter-title::after {
+            transform: rotate(180deg); 
+        }
+        .filter-options {
+            position: absolute;  top: 100%; left: 0;  width: 100%;  background: white;  border: 1px solid #f0d9d9;  display: none;   z-index: 100;  box-shadow: 0 3px 8px rgba(0,0,0,0.08); border-radius: 0 0 4px 4px;
+        }
+        .filter-dropdown:hover .filter-options {
+            display: block;
+        }
+        .filter-options li {
+            padding: 8px 10px;  cursor: pointer;
+        }
+        .filter-options li:hover {
+            background: #fce8e8;
+        }
+        .category-nav {
+            margin-top: 15px;
+        }
+        .category-nav li {
+            margin: 8px 0;  padding: 6px 10px;  position: relative;  text-align:center;transition: background-color 0.2s;  border-radius: 3px;
+        }
+        .category-nav li:hover {
+            background-color: #fce8e8;
+        }
+        .category-nav li i {
+            margin-right: 10px;  color: #b32d2d; font-size: 15px; width: 20px; text-align: center;
+        }
+        .category-nav li a {
+            color: #666;  display: inline-flex;  align-items: center;
+        }
+        .category-nav li:hover a {
+            color: #b32d2d;
+        }
+
+        .middle-column {
+            width: 54%;
+        }
+        .banner {
+            width: 100%;  border: 1px solid #f0d9d9;  overflow: hidden;  margin-bottom: 20px;  position: relative;  height: 300px;  box-shadow: 0 3px 8px rgba(0,0,0,0.08); border-radius: 4px;
+        }
+        .carousel-item {
+            position: absolute; top: 0;  left: 0; width: 100%; height: 100%;  opacity: 0;  transition: opacity 0.5s ease;
+        }
+        .carousel-item.active {
+            opacity: 1;  z-index: 10;
+        }
+        .carousel-item img {
+            width: 100%;  height: 100%; object-fit: cover;  display: block;border-radius: 3px;
+        }
+        .carousel-control {
+            position: absolute;  top: 50%; transform: translateY(-50%);width: 40px;  height: 40px;  background: rgba(0,0,0,0.3); color: white;  border: none; cursor: pointer;  z-index: 20; font-size: 20px; transition: all 0.3s;  border-radius: 50%; display: flex; align-items: center;  justify-content: center;
+        }
+        .carousel-control:hover {
+            background: rgba(0,0,0,0.6);   box-shadow: 0 2px 8px rgba(0,0,0,0.2); transform: translateY(-50%) scale(1.1);
+        }
+        .prev {
+            left: 10px;
+        }
+        .next {
+            right: 10px;
+        }
+        .carousel-indicators {
+            position: absolute; bottom: 10px;  left: 0;  width: 100%;   text-align: center; z-index: 20;
+        }
+        .indicator {
+            display: inline-block;  width: 10px; height: 10px;  border-radius: 50%;  background: rgba(255,255,255,0.5);  margin: 0 5px;cursor: pointer;  transition: all 0.3s;
+        }
+        .indicator:hover, .indicator.active {
+            background: white;  transform: scale(1.2);
+        }
+        .editor-recommend {
+            background: #fff;  border: 1px solid #f0d9d9; padding: 20px;  margin-bottom: 20px; box-shadow: 0 3px 8px rgba(0,0,0,0.08);  border-radius: 4px;  display: flex;  gap: 20px; align-items: center;
+        }
+        .recommend-img {
+            width: 120px;  height: 160px; object-fit: cover;  border-radius: 4px;  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .recommend-content {
+            flex: 1;
+        }
+        .recommend-content h3 {
+            color: #b32d2d;  margin-bottom: 10px;   font-size: 18px; display: flex;  align-items: center; gap: 8px;
+        }
+        .recommend-content h3::before {
+            content: "✨"; font-size: 16px;
+        }
+        .recommend-desc {
+            color: #666;   margin-bottom: 12px;line-height: 1.8;
+        }
+        .recommend-meta {
+            color: #888;  font-size: 14px;  margin-bottom: 15px;
+        }
+        .recommend-btn {
+            display: inline-block;  padding: 8px 20px;  background: #b32d2d;   color: #fff; border-radius: 4px;  transition: all 0.3s;  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .recommend-btn:hover {
+            background: #992424;  color: #fff;  transform: scale(1.03);  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .hot-section {
+            background: #fff;  border: 1px solid #f0d9d9;padding: 20px;  margin-bottom: 20px;  box-shadow: 0 3px 8px rgba(0,0,0,0.08);  border-radius: 4px;
+        }
+        .hot-section h3 {
+            color: #b32d2d; padding-bottom: 10px;  border-bottom: 1px solid #f0d9d9;  margin-bottom: 15px; display: flex;  justify-content: space-between;  align-items: center;
+        }
+        .more-link {
+            font-size: 14px; color: #666;
+        }
+        .card-list {
+            overflow: hidden; display: flex;  flex-wrap: wrap;  gap: 2%;
+        }
+        .card {
+            width: 31.33%; background: #fff;  border: 1px solid #f0d9d9; text-align: center;  position: relative; overflow: hidden; transition: all 0.3s; box-shadow: 0 2px 6px rgba(0,0,0,0.05);   border-radius: 4px; padding-bottom: 15px; margin-bottom: 2%;
+        }
+        .card:hover {
+            box-shadow: 0 8px 16px rgba(0,0,0,0.12); transform: translateY(-3px);
+        }
+        .card img {
+            width: 180px;  height: 210px; display: block;  margin: 15px auto; transition: opacity 0.3s;  border-radius: 2px;
+        }
+        .card:hover img {
+            opacity: 0.9;
+        }
+        .card-detail {
+            position: absolute; bottom: 0;left: 0;  width: 100%;  background: rgba(255,255,255,0.95); padding: 15px; transform: translateY(100%);  transition: transform 0.3s ease;  z-index: 5; box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+        }
+        .card:hover .card-detail {
+            transform: translateY(0);
+        }
+        .card h4 {
+            padding: 0 10px 10px;  font-size: 16px; color: #333;  text-align: center;
+        }
+        .price {
+            padding: 0 10px 10px;  color: #b32d2d;  font-weight: bold;  text-align: center;  font-size: 15px;
+        }
+        .buy-btn {
+            width: 80%;  margin: 0 auto; display: block;  padding: 8px 0;  border: 1px solid #b32d2d;  background: #fce8e8;  color: #b32d2d;  cursor: pointer;  transition: all 0.3s;  border-radius: 4px;  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .buy-btn:hover {
+            background: #b32d2d;  color: white;  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .new-section {
+            background: #fff;  border: 1px solid #f0d9d9;  padding: 20px; box-shadow: 0 3px 8px rgba(0,0,0,0.08);  border-radius: 4px;
+        }
+        .new-section h3 {
+            color: #b32d2d; padding-bottom: 10px;  margin-bottom: 15px;  border-bottom: 1px solid #f0d9d9;  display: flex; justify-content: space-between; align-items: center;
+        }
+        .new-table {
+            width: 100%; border-collapse: collapse;
+        }
+        .new-table th, .new-table td {
+            padding: 12px;  text-align: center;  border-bottom: 1px solid #f0d9d9;  transition: background 0.2s;
+        }
+        .new-table tr:hover td {
+            background: #fef7f7;
+        }
+        .new-table th {
+            background: #fce8e8;  color: #992424;
+        }
+        .new-table .detail-link {
+            color: #b32d2d;  font-size: 14px; text-decoration: underline;
+        }
+        .new-table .detail-link:hover {
+            color: #992424;
+        }
+        .right-column { 
+            width: 20%;
+        }
+        .promo-banner {
+            background: #fff; border: 1px solid #f0d9d9;  padding: 15px; margin-bottom: 20px;  text-align: right; box-shadow: 0 3px 8px rgba(0,0,0,0.08);  border-radius: 4px;
+        }
+        .promo-banner img {
+            width: 100%;  border: 1px solid #f0d9d9;   margin-bottom: 10px;   display: block;   border-radius: 4px;   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .promo-banner .btn {
+            display: inline-block;   padding: 6px 12px;  background: #b32d2d;   color: white;  border-radius: 4px;  margin: 10px 0;  box-shadow: 0 2px 4px rgba(0,0,0,0.1);  transition: all 0.3s;
+        }
+        .promo-banner .btn:hover {
+            background: #992424;  box-shadow: 0 2px 8px rgba(0,0,0,0.15); transform: scale(1.03);
+        }
+        .promo-banner p {
+            color: #666;
+        }
+        .author-section {
+            background: #fff; border: 1px solid #f0d9d9; padding: 20px;  margin-bottom: 20px;  box-shadow: 0 3px 8px rgba(0,0,0,0.08);  border-radius: 4px;
+        }
+        .author-section h3 {
+            color: #b32d2d;   margin-bottom: 15px; padding-bottom: 8px;  border-bottom: 1px solid #f0d9d9; font-size: 16px; display: flex;  align-items: center;  gap: 6px;
+        }
+        .author-section h3::before {
+            content: "👤";
+        }
+        .author-list {
+            display: flex;  flex-direction: column;  gap: 15px;
+        }
+        .author-item {
+            display: flex;   align-items: center;  gap: 12px;
+        }
+        .author-avatar {
+            width: 50px;  height: 50px; border-radius: 50%;  object-fit: cover;  border: 2px solid #fce8e8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .author-info h4 {
+            font-size: 14px;  margin-bottom: 3px;
+        }
+        .author-desc {
+            font-size: 12px;  color: #666;  line-height: 1.4;
+        }
+        .review-section {
+            background: #fff;  border: 1px solid #f0d9d9;  padding: 20px;   margin-bottom: 20px;  box-shadow: 0 3px 8px rgba(0,0,0,0.08);  border-radius: 4px;
+        }
+        .review-section h3 {
+            color: #b32d2d;  margin-bottom: 15px; padding-bottom: 8px;  border-bottom: 1px solid #f0d9d9;  font-size: 16px;  display: flex;  align-items: center; gap: 6px;
+        }
+        .review-section h3::before {
+            content: "⭐";
+        }
+        .review-list {
+            display: flex;  flex-direction: column;  gap: 15px;
+        }
+        .review-item {
+            padding-bottom: 15px;  border-bottom: 1px dashed #f0d9d9;
+        }
+        .review-item:last-child {
+            border-bottom: none; padding-bottom: 0;
+        }
+        .review-header {
+            display: flex;  align-items: center;  gap: 8px;  margin-bottom: 8px;
+        }
+        .user-avatar {
+            width: 36px; height: 36px; border-radius: 50%; object-fit: cover;  border: 1px solid #f0d9d9;
+        }
+        .user-name {
+            font-size: 13px; font-weight: 500;
+        }
+        .review-rating {
+            color: #ffc107;    font-size: 12px;  margin-left: auto;
+        }
+        .review-content {
+            font-size: 13px; color: #666;  line-height: 1.5;
+        }
+        .review-book {
+            font-size: 12px; color: #888;  margin-top: 5px;
+        }
+        .promo-list, .service-box {
+            background: #fff;  border: 1px solid #f0d9d9;  padding: 20px;  margin-bottom: 20px;  box-shadow: 0 3px 8px rgba(0,0,0,0.08);   border-radius: 4px;
+        }
+        .promo-list h3 {
+            color: #b32d2d;  margin-bottom: 10px;  padding-bottom: 5px;  border-bottom: 1px solid #f0d9d9;  display: flex;  align-items: center;  gap: 6px;
+        }
+        .promo-list h3::before {
+            content: "🔥";
+        }
+        .promo-list ul li {
+            margin: 10px 0;  padding-left: 5px;  color: #666; display: flex; align-items: center; gap: 6px;
+        }
+        .promo-list ul li::before {
+            content: "•"; color: #b32d2d;
+        }
+        .promo-list ul li span {
+            color: #b32d2d;  font-weight: bold;  margin-left: auto;
+        }
+        .service-box h4 {
+            font-size: 16px;  font-weight: bold;  margin-bottom: 10px;  color: #992424;  display: flex;  align-items: center;  gap: 6px;
+        }
+        .service-box h4::before {
+            content: "📞";
+        }
+        .service-box p {
+            color: #666;  margin: 8px 0;  display: flex;  align-items: center; gap: 8px;
+        }
+        .modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;z-index: 2001; display: none; backdrop-filter: blur(3px); 
+        }
+        .modal:target {
+            display: block;
+        }
+        .modal:target ~ body {
+            overflow: hidden;
+        }
+        .modal-overlay {
+            position: absolute; width: 100%; height: 100%;background: rgba(0,0,0,0.6);cursor: pointer;transition: background 0.3s;
+        }
+        .modal-overlay:hover {
+            background: rgba(0,0,0,0.7);
+        }
+        .close-btn {
+            position: absolute; top: 12px; right: 18px; font-size: 24px; color: #999; text-decoration: none; transition: color 0.2s, transform 0.2s; z-index: 2002;
+        }
+        .close-btn:hover {
+            color: #b32d2d;
+            transform: rotate(90deg);
+        }
+        .modal-content {
+            position: absolute;  top: 50%; left: 50%;   transform: translate(-50%, -50%);  background: #fff;  padding: 30px; border-radius: 12px;  box-shadow: 0 10px 30px rgba(0,0,0,0.2);   width: 380px; max-width: 90%;z-index: 2002; transition: all 0.3s;
+        }
+        .modal-content:hover {
+            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+        }
+        .modal-title {
+            text-align: center;  color: #b32d2d;  margin-bottom: 25px;  font-size: 22px; display: flex; align-items: center; justify-content: center;gap: 10px;
+        }
+        .modal-title i {
+            font-size: 24px;
+        }
+        form fieldset {
+            border: none; padding: 0; margin: 0;
+        }
+        form legend {
+            display: none; 
+        }
+        .form-group {
+            margin-bottom: 20px; position: relative;
+        }
+        .form-group label {
+            display: block; margin-bottom: 8px;  color: #666;font-size: 14px; font-weight: 500;
+        }
+        .form-group .input-wrapper {
+            position: relative;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+             width: 100%;  padding: 12px 15px 12px 40px;  border: 1px solid #ddd;   border-radius: 6px;   font-size: 15px;transition: all 0.3s;
+        }
+        .form-group textarea {
+            padding: 15px; min-height: 100px;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;  border-color: #b32d2d;  box-shadow: 0 0 0 3px rgba(179,45,45,0.1);
+        }
+        .form-group input::placeholder {
+            color: #bbb;  font-size: 14px;
+        }
+        .form-icon {
+            position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #999; font-size: 18px;  transition: color 0.3s;
+        }
+        .form-group input:focus + .form-icon {
+            color: #b32d2d;
+        }
+        .form-group input[type="checkbox"],
+        .form-group input[type="radio"] {
+            width: auto; margin-right: 8px; vertical-align: middle; position: relative; top: -1px;
+        }
+        .remember-group {
+            display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px;
+        }
+        .remember-group label {
+            display: inline-flex; align-items: center; margin-bottom: 0;cursor: pointer;
+        }
+        .forgot-link {
+            color: #b32d2d;  font-size: 14px;transition: color 0.2s;
+        }
+        .forgot-link:hover {
+            color: #992424; text-decoration: underline;
+        }
+        .radio-group, .checkbox-group {
+            display: flex;  gap: 15px;  margin-top: 8px;  flex-wrap: wrap;
+        }
+        .radio-group label,
+        .checkbox-group label {
+            display: flex; align-items: center; gap: 6px; cursor: pointer; color: #666;   font-size: 14px; padding: 5px 10px; border-radius: 4px; transition: background 0.2s;
+        }
+        .radio-group label:hover,
+        .checkbox-group label:hover {
+            background: #fef7f7;
+        }
+        .form-group .btn-group {
+            display: flex;  align-items: center;  justify-content: center;  margin-top: 20px; width:100%; padding: 0 10px;
+        }
+        .switch-link {
+            color: #b32d2d;  text-decoration: none;   font-size: 14px;   transition: color 0.2s; display: flex; align-items: center;  gap: 5px;
+        }
+        .switch-link i {
+            font-size: 12px;
+        }
+        .switch-link:hover {
+            color: #992424; text-decoration: underline;
+        }
+        .form-actions {
+            display: flex;  gap: 10px;  margin-top: 20px; justify-content: center;
+        }
+        .submit-btn {
+            background: #b32d2d; color: #fff; padding: 10px 25px; border: none; border-radius: 6px; cursor: pointer; transition: all 0.3s; font-size: 15px; font-weight: 500; box-shadow: 0 2px 5px rgba(179,45,45,0.2);
+        }
+        .submit-btn:hover {
+            background: #992424; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(179,45,45,0.3);
+        }
+        .reset-btn {
+            background: #fce8e8; color: #b32d2d; padding: 10px 25px;  border: 1px solid #b32d2d;  border-radius: 6px;  cursor: pointer;  transition: all 0.3s; font-size: 15px;
+        }
+        .reset-btn:hover {
+            background: #f8e0e0; transform: translateY(-2px);
+        }
+        .required {
+            color: #ff4d4d; margin-left: 3px;
+        }
+        .form-row {
+            display: flex;  gap: 15px;  margin-bottom: 20px;
+        }
+        .form-group.full-width {
+            flex: 1;
+        }
+        .subscribe-modal .modal-content {
+            width: 550px;  max-width: 90%;
+        }
+        .subscribe-form .form-group {
+            margin-bottom: 18px;
+        }
+        .subscribe-form .form-group label {
+            font-weight: 500;
+        }
+        .message-toast {
+            position: fixed;  top: 70px; left: 50%;  transform: translateX(-50%); background: rgba(0,0,0,0.85);   color: white;  padding: 10px 20px;  border-radius: 4px;  z-index: 3000;  display: none;  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .loading-mask {
+            position: fixed;  top: 0;  left: 0;   width: 100%;  height: 100%; background: rgba(255,255,255,0.8);   display: none; align-items: center; justify-content: center;  z-index: 4000;    border-radius: 4px;
+        }
+        .loading-spinner {
+            width: 50px;  height: 50px; border: 5px solid #fce8e8; border-top: 5px solid #b32d2d; border-radius: 50%;  animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @media (max-width: 1024px) {
+            .main-container {
+                flex-direction: column;gap: 20px;
+            }
+            .left-column, .middle-column, .right-column {
+                width: 100%;
+            }
+            .card {
+                width: 48%;
+            }
+        }
+        @media (max-width: 768px) {
+            .card {
+                width: 100%;
+            }
+            .editor-recommend {
+                flex-direction: column;  text-align: center;
+            }
+            .search-box {
+                position: fixed;  top: 60px;  left: 0;  width: 100%;  background: #b32d2d; padding: 10px 20px;  z-index: 999;   margin-left: 0;
+            }
+            .user-actions {
+                position: absolute;   right: 20px;
+            }
+            body {
+                padding-top: 110px;
+            }
+            .form-row {
+                flex-direction: column;  gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <a href="#">🍁 叶语书斋</a>
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#">首页</a></li>
+                <li>
+                    <a href="#">图书分类</a>
+                    <ul class="submenu">
+                        <li><a href="#">文学小说</a></li>
+                        <li><a href="#">科技前沿</a></li>
+                        <li><a href="#">儿童读物</a></li>
+                        <li><a href="#">历史传记</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">热门推荐</a>
+                    <ul class="submenu">
+                        <li><a href="#">月度畅销</a></li>
+                        <li><a href="#">新书热卖</a></li>
+                        <li><a href="#">经典重读</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">限时促销</a>
+                    <ul class="submenu">
+                        <li><a href="#">今日特惠</a></li>
+                        <li><a href="#">满减活动</a></li>
+                        <li><a href="#">组合优惠</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">我的书架</a></li>
+            </ul>
+        </nav>
+        <div class="user-actions">
+            <a href="#login-modal" class="login-btn">登录</a>
+            <a href="#register-modal" class="register-btn">注册</a>
+            <a href="#subscribe-modal" class="subscribe-btn">订阅推荐</a>
+        </div>
+        <div class="search-box">
+            <input type="text" class="search-input" placeholder="搜索图书/作者/..." />
+            <button class="search-btn">🔍 搜索</button>
+        </div>
+    </header>
+    <div class="modal login-modal" id="login-modal">
+        <a href="#" class="modal-overlay"></a>
+        <div class="modal-content">
+            <a href="#" class="close-btn">&times;</a>
+            <h3 class="modal-title">
+                <i class="fa-solid fa-right-to-bracket"></i>用户登录
+            </h3>
+            <form id="loginForm" action="#" method="post">
+                <div class="form-group full-width">
+                    <label for="loginUser">用户名</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="loginUser" name="loginUser" placeholder="请输入邮箱或用户名" required>
+                        <i class="fa-solid fa-user form-icon"></i>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label for="loginPwd">密码</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="loginPwd" name="loginPwd" placeholder="请输入密码" required>
+                        <i class="fa-solid fa-lock form-icon"></i>
+                    </div>
+                </div>
+                <div class="remember-group">
+                    <label for="remember">
+                        <input type="checkbox" id="remember" name="remember">
+                        记住我
+                    </label>
+                    <a href="#" class="forgot-link">忘记密码？</a>
+                </div>
+                <div class="form-group btn-group">
+                    <button type="submit" class="submit-btn">登录</button>
+                    <a href="#register-modal" class="switch-link register-switch">
+                        <i class="fa-solid fa-user-plus"></i>注册账号
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal register-modal" id="register-modal">
+        <a href="#" class="modal-overlay"></a>
+        <div class="modal-content">
+            <a href="#" class="close-btn">&times;</a>
+            <h3 class="modal-title">
+                <i class="fa-solid fa-user-plus"></i>用户注册
+            </h3>
+            <form id="registerForm" action="#" method="post">
+                <div class="form-group full-width">
+                    <label for="regUser">用户名 <span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <input type="text" id="regUser" name="regUser" placeholder="请设置用户名（3-16位字符）" required>
+                        <i class="fa-solid fa-id-card form-icon"></i>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label for="regEmail">邮箱 <span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <input type="email" id="regEmail" name="regEmail" placeholder="请输入常用邮箱" required>
+                        <i class="fa-solid fa-envelope form-icon"></i>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label for="regPwd">密码 <span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <input type="password" id="regPwd" name="regPwd" placeholder="请设置密码（不少于6位，含字母和数字）" required>
+                        <i class="fa-solid fa-lock form-icon"></i>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label for="regPwdConfirm">确认密码 <span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <input type="password" id="regPwdConfirm" name="regPwdConfirm" placeholder="请再次输入密码" required>
+                        <i class="fa-solid fa-lock-open form-icon"></i>
+                    </div>
+                </div>
+                <div class="form-group btn-group">
+                    <button type="submit" class="submit-btn">注册</button>
+                    <a href="#login-modal" class="switch-link login-switch">
+                        <i class="fa-solid fa-right-to-bracket"></i>已有账号？登录
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal subscribe-modal" id="subscribe-modal">
+        <a href="#" class="modal-overlay"></a>
+        <div class="modal-content">
+            <a href="#" class="close-btn">&times;</a>
+            <h3 class="modal-title">
+                <i class="fa-solid fa-book-open"></i>图书推荐订阅
+            </h3>
+            <form id="subscribeForm" class="subscribe-form">
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label for="subName">用户名 <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <input type="text" id="subName" name="subName" placeholder="请输入您的昵称" required>
+                            <i class="fa-solid fa-user form-icon"></i>
+                        </div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="subEmail">邮箱 <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <input type="email" id="subEmail" name="subEmail" placeholder="请输入您的邮箱" required>
+                            <i class="fa-solid fa-envelope form-icon"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>性别</label>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="gender" value="male" checked> 男
+                        </label>
+                        <label>
+                            <input type="radio" name="gender" value="female"> 女
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>图书分类 <span class="required">*</span></label>
+                    <div class="checkbox-group">
+                        <label>
+                            <input type="checkbox" name="categories" value="literature"> 文学小说
+                        </label>
+                        <label>
+                            <input type="checkbox" name="categories" value="science"> 科技前沿
+                        </label>
+                        <label>
+                            <input type="checkbox" name="categories" value="history"> 历史传记
+                        </label>
+                        <label>
+                            <input type="checkbox" name="categories" value="psychology"> 心理学
+                        </label>
+                        <label>
+                            <input type="checkbox" name="categories" value="children"> 儿童读物
+                        </label>
+                        <label>
+                            <input type="checkbox" name="categories" value="art"> 艺术设计
+                        </label>
+                        <label>
+                            <input type="checkbox" name="categories" value="programming"> 编程开发
+                        </label>
+                        <label>
+                            <input type="checkbox" name="categories" value="philosophy"> 哲学思考
+                        </label>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label for="city">所在城市</label>
+                        <select id="city" name="city">
+                            <option value="">请选择城市</option>
+                            <option value="yantai">烟台</option>
+                            <option value="beijing">北京</option>
+                            <option value="shanghai">上海</option>
+                            <option value="guangzhou">广州</option>
+                            <option value="shenzhen">深圳</option>
+                            <option value="hangzhou">杭州</option>
+                            <option value="other">其他城市</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="frequency">推送频率</label>
+                        <select id="frequency" name="frequency">
+                            <option value="daily">每日一次</option>
+                            <option value="weekly" selected>每周一次</option>
+                            <option value="monthly">每月一次</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="message">个性化需求</label>
+                    <textarea id="message" name="message" rows="3" placeholder="请告诉我们您的阅读偏好，我们会为您提供更精准的推荐..."></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn">确认订阅</button>
+                    <button type="reset" class="reset-btn">重置</button>  
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="cart-float">
+        🛒
+        <span class="cart-count">0</span>
+    </div>
+    <div class="back-to-top">↑</div>
+    <div class="message-toast"></div>
+    <div class="loading-mask">
+        <div class="loading-spinner"></div>
+        <p style="margin-top: 15px; color: #b32d2d;">加载中...</p>
+    </div>
+    <main class="main-container">
+        <aside class="left-column">
+            <div class="category-title">
+                <h2>图书分类</h2>
+                <ul class="category-nav">
+                    <li><i class="fa-solid fa-book"></i><a href="#">文学小说</a></li> 
+                    <li><i class="fa-solid fa-microchip"></i><a href="#">科技前沿</a></li> 
+                    <li><i class="fa-solid fa-child"></i><a href="#">儿童读物</a></li> 
+                    <li><i class="fa-solid fa-scroll"></i><a href="#">历史传记</a></li> 
+                    <li><i class="fa-solid fa-palette"></i><a href="#">生活艺术</a></li> 
+                    <li><i class="fa-solid fa-laptop-code"></i><a href="#">编程开发</a></li>
+                    <li><i class="fa-solid fa-brain"></i><a href="#">心理励志</a></li> 
+                    <li><i class="fa-solid fa-compass"></i><a href="#">哲学思考</a></li> 
+                    <li><i class="fa-solid fa-landmark"></i><a href="#">历史文化</a></li> 
+                    <li><i class="fa-solid fa-rocket"></i><a href="#">科幻小说</a></li> 
+                </ul>  
+            </div>
+            <div class="filter-dropdown">
+                <div class="filter-title">价格筛选</div>
+                <ul class="filter-options">
+                    <li>全部价格</li>
+                    <li>0-50元</li>
+                    <li>50-100元</li>
+                    <li>100元以上</li>
+                </ul>
+            </div>
+            <div class="filter-dropdown">
+                <div class="filter-title">销量筛选</div>
+                <ul class="filter-options">
+                    <li>全部销量</li>
+                    <li>五万本以上</li>
+                    <li>一万到五万本</li>
+                    <li>五千到一万本</li>
+                    <li>零到五千本</li>
+                </ul>
+            </div>
+            <div class="filter-dropdown">
+                <div class="filter-title">出版时间</div>
+                <ul class="filter-options">
+                    <li>全部时间</li>
+                    <li>近3个月</li>
+                    <li>近半年</li>
+                    <li>近一年</li>
+                </ul>
+            </div>
+            <div class="filter-dropdown">
+                <div class="filter-title">出版国家</div>
+                <ul class="filter-options">
+                    <li>中国大陆</li>
+                    <li>日本</li>
+                    <li>英国</li>
+                    <li>美国</li>
+                    <li>俄罗斯</li>
+                </ul>
+            </div>
+            <div class="promo-list">
+                <h3>今日特惠</h3>
+                <ul>
+                    <li>编程书籍 <span>5折</span></li>
+                    <li>儿童绘本 <span>买一赠一</span></li>
+                    <li>文学经典 <span>满100减30</span></li>
+                    <li>历史传记 <span>7折起</span></li>
+                    <li>心理书籍 <span>8折</span></li>
+                    <li>旅游指南 <span>满50减10</span></li>
+                    <li>健康养生 <span>6折</span></li>
+                    <li>艺术设计 <span>满五十领10元券</span></li>
+                    <li>青春文学 <span>新品上市</span></li>
+                </ul>
+            </div>
+            <div class="service-box">
+                <h4>客服中心</h4>
+                <p>📞 123-456-7890</p>
+                <p>🕒 9:00-22:00</p>
+                <p>🏠 烟台市芝罘区鲁东大学</p>
+                <p>✉️ service@yeyu.com</p>
+            </div>
+        </aside>
+        <section class="middle-column">
+            <div class="banner">
+                <div class="carousel-item active">
+                    <img src="./图书补贴.jpeg" alt="新书上市1" />
+                </div>
+                <div class="carousel-item">
+                    <img src="./全民阅读.jpg" alt="新书上市2" />
+                </div>
+                <div class="carousel-item">
+                    <img src="./长安的荔枝.jpg" alt="新书上市3" />
+                </div>
+                <button class="carousel-control prev">←</button>
+                <button class="carousel-control next">→</button>
+                <div class="carousel-indicators">
+                    <span class="indicator active" data-index="0"></span>
+                    <span class="indicator" data-index="1"></span>
+                    <span class="indicator" data-index="2"></span>
+                </div>
+            </div>
+            <div class="editor-recommend">
+                <img src="长安的荔枝书籍封面.jpg" alt="长安的荔枝" class="recommend-img" />
+                <div class="recommend-content">
+                    <h3>编辑推荐 | 《长安的荔枝》</h3>
+                    <p class="recommend-meta">作者：马伯庸 | 出版社：湖南文艺出版社 | 定价：¥45.00</p>
+                    <p class="recommend-desc">
+                        大唐小吏李善德突然接到一个不可能完成的任务——在杨贵妃诞辰前，将新鲜荔枝从岭南运往长安。
+                        一场跨越五千里的“荔枝转运记”，藏着小人物的生存智慧与职场哲学，马伯庸用幽默笔触写透古代职场的生存法则，读完让人拍案叫绝！
+                    </p>
+                    <a href="#" class="recommend-btn">立即购买</a>
+                </div>
+            </div>
+            <div class="hot-section">
+                <h3>热门推荐 <a href="#" class="more-link">查看更多 →</a></h3>
+                <div class="card-list">
+                    <div class="card">
+                        <img src="红与黑.jpg" alt="红与黑" class="preview-img-trigger" />
+                        <h4>《红与黑》</h4>
+                        <p class="price">¥66.00</p>
+                        <button class="buy-btn">加入购物车</button>
+                        <div class="card-detail">
+                            <p>作者：司汤达</p>
+                            <p>出版社：人民文学出版社</p>
+                            <p>简介：一部批判现实主义文学的奠基之作</p>
+                            <button class="buy-btn">立即购买</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="人间失格.jpg" alt="人间失格" class="preview-img-trigger" />
+                        <h4>《人间失格》</h4>
+                        <p class="price">¥66.00</p>
+                        <button class="buy-btn">加入购物车</button>
+                        <div class="card-detail">
+                            <p>作者：太宰治</p>
+                            <p>出版社：作家出版社</p>
+                            <p>简介：日本文学经典，探讨人性与自我的杰作</p>
+                            <button class="buy-btn">立即购买</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="苦难辉煌.jpg" alt="苦难辉煌" class="preview-img-trigger" />
+                        <h4>《苦难辉煌》</h4>
+                        <p class="price">¥66.00</p>
+                        <button class="buy-btn">加入购物车</button>
+                        <div class="card-detail">
+                            <p>作者：金一南</p>
+                            <p>出版社：作家出版社</p>
+                            <p>简介：讲述中国共产党早期艰苦卓绝的奋斗历程</p>
+                            <button class="buy-btn">立即购买</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="new-section">
+                <h3>新书上市 <a href="#" class="more-link">查看更多 →</a></h3>
+                <table class="new-table">
+                    <thead>
+                        <tr>
+                            <th>书名</th>
+                            <th>作者</th>
+                            <th>价格</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>《河边的错误》</td>
+                            <td>余华</td>
+                            <td>¥59.00</td>
+                            <td><a href="#" class="detail-link">查看详情</a></td>
+                        </tr>
+                        <tr>
+                            <td>《霍乱时期的爱情》</td>
+                            <td>加西亚·马尔克斯</td>
+                            <td>¥66.00</td>
+                            <td><a href="#" class="detail-link">查看详情</a></td>
+                        </tr>
+                        <tr>
+                            <td>《鳄鱼》</td>
+                            <td>莫言</td>
+                            <td>¥59.00</td>
+                            <td><a href="#" class="detail-link">查看详情</a></td>
+                        </tr>
+                        <tr>
+                            <td>《时间的秩序》</td>
+                            <td>卡洛·罗韦利</td>
+                            <td>¥72.00</td>
+                            <td><a href="#" class="detail-link">查看详情</a></td>
+                        </tr>
+                        <tr>
+                            <td>《未来简史》</td>
+                            <td>尤瓦尔·赫拉利</td>
+                            <td>¥68.00</td>
+                            <td><a href="#" class="detail-link">查看详情</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <aside class="right-column">
+            <div class="promo-banner">
+                <img src="新用户有礼.png" alt="新用户有礼" />
+                <p>新用户注册即享专属优惠！</p>
+                <a href="#" class="btn">立即领取</a>
+                <p>活动时间：2025.10.01 - 2025.10.31</p>
+            </div>
+            <div class="promo-banner">
+                <img src="双十一.png" alt="双十一" />
+                <p>双十一购物节，尽享全场特惠！</p>
+                <a href="#" class="btn">立即抢购</a>
+                <p>活动时间：2025.11.01 - 2025.11.11</p>
+            </div>
+            <div class="author-section">
+                <h3>热门作者推荐</h3>
+                <div class="author-list">
+                    <div class="author-item">
+                        <img src="余华.jpg" alt="余华" class="author-avatar" />
+                        <div class="author-info">
+                            <h4>余华</h4>
+                            <p class="author-desc">中国当代作家，代表作《活着》《许三观卖血记》</p>
+                        </div>
+                    </div>
+                    <div class="author-item">
+                        <img src="加西亚.jpg" alt="加西亚·马尔克斯" class="author-avatar" />
+                        <div class="author-info">
+                            <h4>加西亚·马尔克斯</h4>
+                            <p class="author-desc">哥伦比亚作家，魔幻现实主义代表，著《百年孤独》</p>
+                        </div>
+                    </div>
+                    <div class="author-item">
+                        <img src="莫言.jpg" alt="莫言" class="author-avatar" />
+                        <div class="author-info">
+                            <h4>莫言</h4>
+                            <p class="author-desc">诺贝尔文学奖得主，代表作《红高粱》《蛙》</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="review-section">
+                <h3>读者真实好评</h3>
+                <div class="review-list">
+                    <div class="review-item">
+                        <div class="review-header">
+                            <img src="user1.jpg" alt="用户头像" class="user-avatar" />
+                            <span class="user-name">书虫小A</span>
+                            <span class="review-rating">★★★★★</span>
+                        </div>
+                        <p class="review-content">《红与黑》的人物塑造太深刻了，于连的挣扎与野心让人共情，翻译也很流畅，值得反复读！</p>
+                        <p class="review-book">评价图书：《红与黑》</p>
+                    </div>
+                    <div class="review-item">
+                        <div class="review-header">
+                            <img src="user2.jpg" alt="用户头像" class="user-avatar" />
+                            <span class="user-name">深夜读书人</span>
+                            <span class="review-rating">★★★★☆</span>
+                        </div>
+                        <p class="review-content">《人间失格》文字细腻到扎心，太宰治对人性的洞察太透彻了，适合安静的时候慢慢读。</p>
+                        <p class="review-book">评价图书：《人间失格》</p>
+                    </div>
+                    <div class="review-item">
+                        <div class="review-header">
+                            <img src="user3.jpg" alt="用户头像" class="user-avatar" />
+                            <span class="user-name">历史爱好者</span>
+                            <span class="review-rating">★★★★★</span>
+                        </div>
+                        <p class="review-content">《苦难辉煌》把党史讲得生动又深刻，史料翔实，语言有力量，读起来很有共鸣！</p>
+                        <p class="review-book">评价图书：《苦难辉煌》</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+</body>
+</html>
