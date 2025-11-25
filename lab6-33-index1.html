@@ -1,0 +1,2421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>叶语书斋</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;padding: 0; box-sizing: border-box; 
+        }
+        body {
+            line-height: 1.6;  color: #333;  background: #f8f2f2; padding-top: 10px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        a {
+            text-decoration: none; color: inherit;  cursor: pointer;transition: color 0.2s;
+        }
+        a:hover {
+            color: #b32d2d;
+        }
+        ul {
+            list-style: none;
+        }
+        button, input, select, textarea {
+            font-family: inherit;
+        }
+        .header-top {
+            width: 100%;
+            background: #e4cdcd54;
+            border-bottom: 1px solid #e8e8e8;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .top-nav {
+            width: 95%;
+            max-width: 1500px;
+            margin: 0 auto;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .welcome-message {
+            flex: 1;
+            text-align: center;
+        }
+
+        .login-link {
+            color: #b32d2d;
+            text-decoration: underline;
+        }
+
+        .top-menu {
+            display: flex;
+            gap: 10px;
+        }
+
+        .top-menu a {
+            color: #666;
+            padding: 0 5px;
+        }
+
+        .top-menu a:hover {
+            color: #b32d2d;
+        }
+
+        /* 主头部样式（新增+修改） */
+        .main-header {
+            width: 82%;
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #b32d2d;
+            margin-right: 20px;
+        }
+
+        .search-container {
+            flex: 1;
+            max-width: 800px;
+        }
+
+        .search-box {
+            display: flex;
+            width: 100%;
+            border: 2px solid #b32d2d;
+        }
+
+        .search-input {
+            flex: 1;
+            height: 38px;
+            padding: 0 12px;
+            border: none;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .category-select {
+            width: 120px;
+            border: none;
+            border-left: 1px solid #e8e8e8;
+            border-right: 1px solid #e8e8e8;
+            padding: 0 10px;
+            color: #666;
+            background-color: #f8f8f8;
+            cursor: pointer;
+        }
+
+        .search-btn {
+            width: 50px;
+            height: 38px;
+            background: #b32d2d;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .search-btn:hover {
+            background: #992424;
+        }
+
+        .hot-searches {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .hot-searches a {
+            color: #666;
+            margin: 0 8px;
+        }
+
+        .hot-searches a:hover {
+            color: #b32d2d;
+            text-decoration: underline;
+        }
+
+        .advanced-search {
+            color: #b32d2d !important;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .cart-btn, .orders-btn {
+            padding: 6px 12px;
+            border: 1px solid #b32d2d;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .cart-btn {
+            background: #b32d2d;
+            color: white;
+        }
+
+        .cart-btn:hover {
+            background: #992424;
+        }
+
+        .orders-btn {
+            background: white;
+            color: #b32d2d;
+        }
+
+        .orders-btn:hover {
+            background: #fce8e8;
+        }
+
+        /* 主导航样式（修改） */
+        .main-nav {
+            width: 100%;
+            background: #b32d2d;
+            border-top: 1px solid #c83c3c;
+        }
+
+        .main-nav ul {
+            width: 95%;
+            max-width: 1500px;
+            margin: 0 auto;
+            display: flex;
+        }
+
+        .main-nav ul li {
+            line-height: 40px;
+            padding: 0 20px;
+            position: relative;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+
+        .main-nav ul li:hover {
+            background: #992424;
+            transform: translateY(-3px) translateZ(10px);
+            -webkit-transform: translateY(-3px) translateZ(10px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        /* 隐藏原有用户操作区 */
+        .user-actions {
+            display: none;
+        }
+
+        /* 子菜单样式（保留原有，调整顶部距离） */
+        .submenu {
+            position: absolute; top: 40px;  left: 0;  width: 180px;  background: rgba(179, 45, 45, 0.95);  display: none;   z-index: 1001; box-shadow: 0 4px 10px rgba(0,0,0,0.15); border-radius: 0 0 4px 4px;
+            transform: translateY(-10px);
+            -webkit-transform: translateY(-10px);
+            transition: all 0.3s ease;
+            -webkit-transition: all 0.3s ease;
+            opacity: 0;
+        }
+
+        .main-nav li:hover .submenu {
+            display: block;
+            transform: translateY(0);
+            -webkit-transform: translateY(0);
+            opacity: 1;
+        }
+
+        .submenu li {
+            float: none;  line-height: 40px;  padding: 0 15px;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+
+        .submenu li:hover {
+            background: #801e1e;
+            transform: translateX(5px) translateZ(5px);
+            -webkit-transform: translateX(5px) translateZ(5px);
+        }
+        /* 购物车图标动画 */
+        .cart-float {
+            position: fixed; top: 80px;  right: 30px;  width: 50px;  height: 50px;  background: #fff;   border-radius: 50%;  display: flex;  align-items: center;  justify-content: center;  box-shadow: 0 4px 12px rgba(0,0,0,0.12);  z-index: 9999;  cursor: pointer; 
+            transition: transform 0.8s ease-in-out, box-shadow 0.3s ease, background 0.3s ease;;
+            -webkit-transition: transform 0.8s ease-in-out, box-shadow 0.3s ease, background 0.3s ease;
+            /* transform: translateZ(0);
+            -webkit-transform: translateZ(0); */
+        }
+        .cart-float:hover {
+            transform: rotate(360deg) scale(1.1) ;
+            -webkit-transform: rotate(360deg) scale(1.1) ;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+            background: #fef7f7;
+        }
+        .cart-count {
+            position: absolute; top: -5px;  right: -5px; width: 20px;  height: 20px; background: #ff4d4d;  color: white; border-radius: 50%;  font-size: 12px;  text-align: center; line-height: 20px;  box-shadow: 0 2px 4px rgba(0,0,0,0.2);z-index: 10;
+        }
+        .back-to-top {
+            position: fixed;   bottom: 30px; right: 30px;  width: 50px;  height: 50px;  background: #b32d2d;  color: white; border-radius: 50%;  display: none;  align-items: center;  justify-content: center;  cursor: pointer;z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.12);  transition: all 0.3s;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+        .back-to-top:hover {
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);  transform: scale(1.05) translateZ(10px);
+            -webkit-transform: scale(1.05) translateZ(10px);
+        }
+        .main-container {
+            width: 95%;   max-width: 1500px;   margin: 20px auto; overflow: hidden;  display: flex;   gap: 2%;
+        }
+        .left-column {
+            width: 20%;  background: #fff;  border: 1px solid #f0d9d9; padding: 20px;  box-shadow: 0 3px 8px rgba(0,0,0,0.08);  border-radius: 4px;
+        }
+        .category-title {
+            font-size: 18px; font-weight: bold;  margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #b32d2d;color: #b32d2d; text-align: center;
+        }
+        .filter-form {
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .filter-label {
+            color: #992424;
+            font-weight: 500;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .filter-label i {
+            font-size: 14px;
+        }
+        .filter-select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #f0d9d9;
+            border-radius: 4px;
+            background: #fff;
+            color: #333;
+            font-size: 14px;
+            transition: all 0.3s;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23992424' viewBox='0 0 16 16'%3E%3Cpath d='M8 11l4-4H4l4 4z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 14px;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+        .filter-select:focus {
+            outline: none;
+            border-color: #b32d2d;
+            box-shadow: 0 0 0 2px rgba(179,45,45,0.1);
+            transform: translateZ(5px);
+            -webkit-transform: translateZ(5px);
+        }
+        .filter-select:hover {
+            border-color: #b32d2d;
+            background-color: #fef7f7;
+            transform: translateY(-2px) translateZ(5px);
+            -webkit-transform: translateY(-2px) translateZ(5px);
+        }
+        .filter-submit {
+            width: 100%;
+            padding: 10px 0;
+            background: #b32d2d;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+        .filter-submit:hover {
+            background: #992424;
+            transform: translateY(-2px) translateZ(10px);
+            -webkit-transform: translateY(-2px) translateZ(10px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .category-nav {
+            margin-top: 15px;
+        }
+        .category-nav li {
+            margin: 8px 0;  padding: 6px 10px;  position: relative;  text-align:center;transition: background-color 0.2s;  border-radius: 3px;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+        .category-nav li:hover {
+            background-color: #fce8e8;
+            transform: translateX(5px) translateZ(5px);
+            -webkit-transform: translateX(5px) translateZ(5px);
+        }
+        .category-nav li i {
+            margin-right: 10px;  color: #b32d2d; font-size: 15px; width: 20px; text-align: center;
+        }
+        .category-nav li a {
+            color: #666;  display: inline-flex;  align-items: center;
+        }
+        .category-nav li:hover a {
+            color: #b32d2d;
+        }
+
+        .middle-column {
+            width: 54%;
+        }
+        .banner {
+            width: 100%;  border: 1px solid #f0d9d9;  overflow: hidden;  margin-bottom: 20px;  position: relative;  height: 300px;  box-shadow: 0 3px 8px rgba(0,0,0,0.08); border-radius: 4px;
+        }
+        /* 轮播图使用CSS动画实现 */
+        .carousel {
+            position: relative;
+            height: 100%;
+            overflow: hidden;
+        }
+        .carousel-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            animation: carouselAnimation 15s infinite;
+            -webkit-animation: carouselAnimation 15s infinite;
+        }
+        .carousel-item:nth-child(1) {
+            animation-delay: 0s;
+        }
+        .carousel-item:nth-child(2) {
+            animation-delay: 5s;
+        }
+        .carousel-item:nth-child(3) {
+            animation-delay: 10s;
+        }
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 3px;
+        }
+        @keyframes carouselAnimation {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            30% { opacity: 1; }
+            40% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+        @-webkit-keyframes carouselAnimation {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            30% { opacity: 1; }
+            40% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+        .carousel-control {
+            position: absolute;  top: 50%; transform: translateY(-50%);width: 40px;  height: 40px;  background: rgba(0,0,0,0.3); color: white;  border: none; cursor: pointer;  z-index: 20; font-size: 20px; transition: all 0.3s;  border-radius: 50%; display: flex; align-items: center;  justify-content: center;
+            transform: translateY(-50%) translateZ(0);
+            -webkit-transform: translateY(-50%) translateZ(0);
+        }
+        .carousel-control:hover {
+            background: rgba(0,0,0,0.6);   box-shadow: 0 2px 8px rgba(0,0,0,0.2); transform: translateY(-50%) scale(1.1) translateZ(10px);
+            -webkit-transform: translateY(-50%) scale(1.1) translateZ(10px);
+        }
+        .prev {
+            left: 10px;
+        }
+        .next {
+            right: 10px;
+        }
+        .carousel-indicators {
+            position: absolute; bottom: 10px;  left: 0;  width: 100%;   text-align: center; z-index: 20;
+        }
+        .indicator {
+            display: inline-block;  width: 10px; height: 10px;  border-radius: 50%;  background: rgba(255,255,255,0.5);  margin: 0 5px;cursor: pointer;  transition: all 0.3s;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+        .indicator:hover, .indicator.active {
+            background: white;  transform: scale(1.2) translateZ(10px);
+            -webkit-transform: scale(1.2) translateZ(10px);
+        }
+
+        /* 3D翻转图书卡片样式 */
+        .editor-recommend-carousel {
+            background: #fff;
+            border: 1px solid #f0d9d9;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+        .editor-carousel-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .editor-carousel-title {
+            color: #b32d2d;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .editor-carousel-title::before {
+            content: "📌";
+            font-size: 16px;
+        }
+        .editor-carousel-more {
+            margin-left: auto;
+            color: #666;
+            font-size: 14px;
+        }
+        .editor-carousel-track {
+            display: flex;
+            animation: scrollBooks 20s linear infinite;
+            -webkit-animation: scrollBooks 20s linear infinite;
+            gap: 15px;
+        }
+        .editor-recommend-carousel:hover .editor-carousel-track {
+            animation-play-state: paused;
+            -webkit-animation-play-state: paused;
+        }
+        @keyframes scrollBooks {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        @-webkit-keyframes scrollBooks {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .editor-carousel-item {
+            min-width: calc(33.333% - 10px);
+            background: #faf6f6;
+            border-radius: 4px;
+            padding: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            perspective: 1000px;
+            -webkit-perspective: 1000px;
+            height: 320px;
+        }
+        .editor-carousel-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        .book-tag {
+            position: absolute;
+            top: -8px;
+            left: 12px;
+            background: #b32d2d;
+            color: #fff;
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-weight: bold;
+            z-index: 10;
+        }
+        .book-cover-container {
+            position: relative;
+            margin-bottom: 0;
+            text-align: center;
+            height: 100%;
+            perspective: 1000px;
+            -webkit-perspective: 1000px;
+        }
+        /* 3D翻转卡片样式 - 延长动画时长到1.8秒，优化缓动曲线 */
+        .flip-card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            -webkit-transform-style: preserve-3d;
+            /* 动画时长从0.8s延长到1.8s，缓动曲线更平缓 */
+            transition: transform 1.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            -webkit-transition: transform 1.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .editor-carousel-item:hover .flip-card {
+            transform: rotateY(180deg);
+            -webkit-transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .flip-card-front {
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .flip-card-back {
+            background: #f8f2f2;
+            transform: rotateY(180deg);
+            -webkit-transform: rotateY(180deg);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .book-cover {
+            width: 100%;
+            max-width: none;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 3px 3px 0 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            transition: all 0.5s ease;
+            -webkit-transition: all 0.5s ease;
+            transform-origin: center;
+            -webkit-transform-origin: center;
+        }
+        .book-cover:hover {
+            transform: translateX(10px) scale(1.05);
+            -webkit-transform: translateX(10px) scale(1.05);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        .book-info{
+            width: 100%;
+            padding: 10px;
+            background: rgba(255,255,255,0.9); /* 增加背景便于阅读 */
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+        .book-info h4 {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 3px;
+            white-space: normal;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1; /* 最多显示1行 */
+            -webkit-box-orient: vertical;
+        }
+        .book-author {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 0;
+        }
+        .book-desc {
+            font-size: 12px;
+            color: #888;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        .book-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .read-btn {
+            flex: 1;
+            padding: 6px 0;
+            background: #fce8e8;
+            color: #b32d2d;
+            border: 1px solid #b32d2d;
+            border-radius: 3px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .add-btn {
+            flex: 1;
+            padding: 6px 0;
+            background: #b32d2d;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .read-btn:hover {
+            background: #f8e0e0;
+        }
+        .add-btn:hover {
+            background: #992424;
+        }
+        .book-price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #b32d2d;
+            margin-bottom: 10px;
+        }
+        .book-rating {
+            color: #ffc107;
+            margin-bottom: 10px;
+        }
+        .book-details {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.4;
+        }
+        .editor-carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 36px;
+            height: 72px;
+            background: rgba(0,0,0,0.2);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            z-index: 20;
+            font-size: 18px;
+            transition: all 0.3s;
+            opacity: 0;
+        }
+        .editor-carousel-item {
+            height: 380px; /* 适当增加卡片高度 */
+        }
+
+        .editor-recommend-carousel:hover .editor-carousel-control {
+            opacity: 1;
+        }
+        .editor-carousel-control.prev {
+            left: 0;
+            border-radius: 0 4px 4px 0;
+        }
+        .editor-carousel-control.next {
+            right: 0;
+            border-radius: 4px 0 0 4px;
+        }
+        .editor-carousel-control:hover {
+            background: rgba(179,45,45,0.8);
+        }
+        .editor-carousel-indicators {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            z-index: 20;
+        }
+        .editor-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(179,45,45,0.3);
+            margin: 0 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .editor-indicator:hover, .editor-indicator.active {
+            background: #b32d2d;
+            transform: scale(1.3);
+        }
+
+        /* 3D环形图书展示 */
+        .hot-section {
+            background: #fff;  border: 1px solid #f0d9d9;padding: 20px;  margin-bottom: 20px;  box-shadow: 0 3px 8px rgba(0,0,0,0.08);  border-radius: 4px;
+        }
+        .hot-section h3 {
+            color: #b32d2d; padding-bottom: 10px;  border-bottom: 1px solid #f0d9d9;  margin-bottom: 15px; display: flex;  justify-content: space-between;  align-items: center;
+        }
+        .more-link {
+            font-size: 14px; color: #666;
+        }
+        .card-list {
+            overflow: hidden; display: flex;  flex-wrap: wrap;  gap: 2%;
+        }
+        .card {
+            width: 31.33%; background: #fff;  border: 1px solid #f0d9d9; text-align: center;  position: relative; overflow: hidden; transition: all 0.3s; box-shadow: 0 2px 6px rgba(0,0,0,0.05);   border-radius: 4px; padding-bottom: 15px; margin-bottom: 2%;
+        }
+        .card:hover {
+            box-shadow: 0 8px 16px rgba(0,0,0,0.12); transform: translateY(-3px);
+        }
+        .card img {
+            width: 180px;  height: 210px; display: block;  margin: 15px auto; 
+            /* 图书动效：鼠标悬停时右移、阴影加深、放大 */
+            transition: all 0.5s ease;
+            -webkit-transition: all 0.5s ease;
+            transform-origin: center;
+            -webkit-transform-origin: center;
+        }
+        .card:hover img {
+            transform: translateX(10px) scale(1.05);
+            -webkit-transform: translateX(10px) scale(1.05);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            opacity: 0.9;
+        }
+        .card-detail {
+            position: absolute; bottom: 0;left: 0;  width: 100%;  background: rgba(255,255,255,0.95); padding: 15px; transform: translateY(100%);  transition: transform 0.3s ease;  z-index: 5; box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+        }
+        .card:hover .card-detail {
+            transform: translateY(0);
+        }
+        .card h4 {
+            padding: 0 10px 10px;  font-size: 16px; color: #333;  text-align: center;
+        }
+        .price {
+            padding: 0 10px 10px;  color: #b32d2d;  font-weight: bold;  text-align: center;  font-size: 15px;
+        }
+        .buy-btn {
+            width: 80%;  margin: 0 auto; display: block;  padding: 8px 0;  border: 1px solid #b32d2d;  background: #fce8e8;  color: #b32d2d;  cursor: pointer;  transition: all 0.3s;  border-radius: 4px;  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .buy-btn:hover {
+            background: #b32d2d;  color: white;  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transform: scale(1.05);
+            -webkit-transform: scale(1.05);
+        }
+        
+        /* 3D环形展示区 */
+        .carousel-3d-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            margin: 30px 0;
+            perspective: 1000px;
+            -webkit-perspective: 1000px;
+        }
+        .carousel-3d {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            -webkit-transform-style: preserve-3d;
+            animation: rotate3d 20s infinite linear;
+            -webkit-animation: rotate3d 20s infinite linear;
+        }
+        .carousel-3d:hover {
+            animation-play-state: paused;
+            -webkit-animation-play-state: paused;
+        }
+        .carousel-3d-item {
+            position: absolute;
+            width: 180px;
+            height: 240px;
+            top: 50%;
+            left: 50%;
+            margin: -120px 0 0 -90px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.5s;
+            -webkit-transition: transform 0.5s;
+            transform-style: preserve-3d;
+            -webkit-transform-style: preserve-3d;
+        }
+        .carousel-3d-item img {
+            width: 120px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+        }
+        .carousel-3d-item h4 {
+            font-size: 14px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        .carousel-3d-item .price {
+            color: #b32d2d;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .carousel-3d-item:nth-child(1) { transform: rotateY(0deg) translateZ(300px); }
+        .carousel-3d-item:nth-child(2) { transform: rotateY(45deg) translateZ(300px); }
+        .carousel-3d-item:nth-child(3) { transform: rotateY(90deg) translateZ(300px); }
+        .carousel-3d-item:nth-child(4) { transform: rotateY(135deg) translateZ(300px); }
+        .carousel-3d-item:nth-child(5) { transform: rotateY(180deg) translateZ(300px); }
+        .carousel-3d-item:nth-child(6) { transform: rotateY(225deg) translateZ(300px); }
+        .carousel-3d-item:nth-child(7) { transform: rotateY(270deg) translateZ(300px); }
+        .carousel-3d-item:nth-child(8) { transform: rotateY(315deg) translateZ(300px); }
+
+        @keyframes rotate3d {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+        @-webkit-keyframes rotate3d {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+
+        .new-section {
+            background: #fff;  border: 1px solid #f0d9d9;  padding: 20px; box-shadow: 0 3px 8px rgba(0,0,0,0.08);  border-radius: 4px;
+        }
+        .new-section h3 {
+            color: #b32d2d; padding-bottom: 10px;  margin-bottom: 15px;  border-bottom: 1px solid #f0d9d9;  display: flex; justify-content: space-between; align-items: center;
+        }
+        .new-table {
+            width: 100%; border-collapse: collapse;
+        }
+        .new-table th, .new-table td {
+            padding: 12px;  text-align: center;  border-bottom: 1px solid #f0d9d9;  transition: background 0.2s;
+        }
+        .new-table tr:hover td {
+            background: #fef7f7;
+        }
+        .new-table th {
+            background: #fce8e8;  color: #992424;
+        }
+        .new-table .detail-link {
+            color: #b32d2d;  font-size: 14px; text-decoration: underline;
+        }
+        .new-table .detail-link:hover {
+            color: #992424;
+        }
+        .right-column { 
+            width: 20%;
+        }
+        .promo-banner {
+            background: #fff; border: 1px solid #f0d9d9;  padding: 15px; margin-bottom: 20px;  text-align: right; box-shadow: 0 3px 8px rgba(0,0,0,0.08);  border-radius: 4px;
+        }
+        .promo-banner img {
+            width: 100%;  border: 1px solid #f0d9d9;   margin-bottom: 10px;   display: block;   border-radius: 4px;   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            transition: transform 0.5s ease;
+            -webkit-transition: transform 0.5s ease;
+        }
+        .promo-banner:hover img {
+            transform: scale(1.03);
+            -webkit-transform: scale(1.03);
+        }
+        .promo-banner .btn {
+            display: inline-block;   padding: 6px 12px;  background: #b32d2d;   color: white;  border-radius: 4px;  margin: 10px 0;  box-shadow: 0 2px 4px rgba(0,0,0,0.1);  transition: all 0.3s;
+        }
+        .promo-banner .btn:hover {
+            background: #992424;  box-shadow: 0 2px 8px rgba(0,0,0,0.15); transform: scale(1.03);
+        }
+        .promo-banner p {
+            color: #666;
+        }
+        .author-section {
+            background: #fff; border: 1px solid #f0d9d9; padding: 20px;  margin-bottom: 20px;  box-shadow: 0 3px 8px rgba(0,0,0,0.08);  border-radius: 4px;
+        }
+        .author-section h3 {
+            color: #b32d2d;   margin-bottom: 15px; padding-bottom: 8px;  border-bottom: 1px solid #f0d9d9; font-size: 16px; display: flex;  align-items: center;  gap: 6px;
+        }
+        .author-section h3::before {
+            content: "👤";
+        }
+        .author-list {
+            display: flex;  flex-direction: column;  gap: 15px;
+        }
+        .author-item {
+            display: flex;   align-items: center;  gap: 12px;
+            transition: transform 0.3s ease;
+            -webkit-transition: transform 0.3s ease;
+        }
+        .author-item:hover {
+            transform: translateX(5px);
+            -webkit-transform: translateX(5px);
+        }
+        .author-avatar {
+            width: 50px;  height: 50px; border-radius: 50%;  object-fit: cover;  border: 2px solid #fce8e8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .author-info h4 {
+            font-size: 14px;  margin-bottom: 3px;
+        }
+        .author-desc {
+            font-size: 12px;  color: #666;  line-height: 1.4;
+        }
+        .review-section {
+            background: #fff;  border: 1px solid #f0d9d9;  padding: 20px;   margin-bottom: 20px;  box-shadow: 0 3px 8px rgba(0,0,0,0.08);  border-radius: 4px;
+        }
+        .review-section h3 {
+            color: #b32d2d;  margin-bottom: 15px; padding-bottom: 8px;  border-bottom: 1px solid #f0d9d9;  font-size: 16px;  display: flex;  align-items: center; gap: 6px;
+        }
+        .review-section h3::before {
+            content: "⭐";
+        }
+        .review-list {
+            display: flex;  flex-direction: column;  gap: 15px;
+        }
+        .review-item {
+            padding-bottom: 15px;  border-bottom: 1px dashed #f0d9d9;
+            transition: transform 0.3s ease;
+            -webkit-transition: transform 0.3s ease;
+        }
+        .review-item:hover {
+            transform: translateX(5px);
+            -webkit-transform: translateX(5px);
+        }
+        .review-item:last-child {
+            border-bottom: none; padding-bottom: 0;
+        }
+        .review-header {
+            display: flex;  align-items: center;  gap: 8px;  margin-bottom: 8px;
+        }
+        .user-avatar {
+            width: 36px; height: 36px; border-radius: 50%;  object-fit: cover;  border: 1px solid #f0d9d9;
+        }
+        .user-name {
+            font-size: 13px; font-weight: 500;
+        }
+        .review-rating {
+            color: #ffc107;    font-size: 12px;  margin-left: auto;
+        }
+        .review-content {
+            font-size: 13px; color: #666;  line-height: 1.5;
+        }
+        .review-book {
+            font-size: 12px; color: #888;  margin-top: 5px;
+        }
+        .promo-list, .service-box {
+            background: #fff;  border: 1px solid #f0d9d9;  padding: 20px;  margin-bottom: 20px;  box-shadow: 0 3px 8px rgba(0,0,0,0.08);   border-radius: 4px;
+        }
+        .promo-list h3 {
+            color: #b32d2d;  margin-bottom: 10px;  padding-bottom: 5px;  border-bottom: 1px solid #f0d9d9;  display: flex;  align-items: center;  gap: 6px;
+        }
+        .promo-list h3::before {
+            content: "🔥";
+        }
+        .promo-list ul li {
+            margin: 10px 0;  padding-left: 5px;  color: #666; display: flex; align-items: center; gap: 6px;
+            transition: transform 0.3s ease;
+            -webkit-transition: transform 0.3s ease;
+        }
+        .promo-list ul li:hover {
+            transform: translateX(5px);
+            -webkit-transform: translateX(5px);
+        }
+        .promo-list ul li::before {
+            content: "•"; color: #b32d2d;
+        }
+        .service-box h4 {
+            font-size: 16px;  font-weight: bold;  margin-bottom: 10px;  color: #992424;  display: flex;  align-items: center;  gap: 6px;
+        }
+        .service-box h4::before {
+            content: "📞";
+        }
+        .service-box p {
+            color: #666;  margin: 8px 0;  display: flex;  align-items: center; gap: 8px;
+        }
+        
+        /* 页脚样式 */
+        /* footer {
+            background: #b32d2d;
+            color: #fff;
+            padding: 40px 0 20px;
+            margin-top: 40px;
+        }
+        .footer-container {
+            width: 95%;
+            max-width: 1500px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 20px;
+            padding: 0 15px;
+        }
+        .footer-section h4 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            position: relative;
+            padding-bottom: 8px;
+        }
+        .footer-section h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: #fff;
+        }
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        .footer-section ul li a {
+            color: #fce8e8;
+            transition: all 0.3s;
+        }
+        .footer-section ul li a:hover {
+            color: #fff;
+            padding-left: 5px;
+        } */
+         /* 页脚顶部服务栏 */
+        .footer-services {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: #e5b0b0;
+            padding: 15px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .service-item {
+            display: flex;
+            align-items: center;
+            color: #b32d2d;
+        }
+        .service-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid #b32d2d;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        .service-icon:hover {
+            background: #b32d2d;
+            color: #fff;
+            transform: scale(1.1);
+        }
+        .service-text {
+            display: flex;
+            flex-direction: column;
+        }
+        .service-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .service-desc {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* 页脚中间链接区 */
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 0 20px;
+            margin-bottom: 20px;
+        }
+        .footer-section {
+            flex: 1;
+            margin: 0 10px;
+        }
+        .footer-section h4 {
+            font-size: 16px;
+            color: #b32d2d;
+            border-bottom: 1px solid #b32d2d;
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+        }
+        .footer-section ul li {
+            color: #666;
+            margin-bottom: 6px;
+            transition: color 0.3s ease;
+        }
+        .footer-section ul li:hover {
+            color: #b32d2d;
+        }
+
+        /* 页脚底部信息 */
+        .footer-bottom {
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            line-height: 1.8;
+            padding: 20px 0;
+            border-top: 1px solid #eee;
+        }
+        .footer-links a {
+            color: #666;
+            margin: 0 5px;
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover {
+            color: #b32d2d;
+        }
+        .footer-logos {
+            margin-top: 15px;
+        }
+        .footer-logos img {
+            width: 80px;
+            margin: 0 5px;
+            transition: transform 0.3s ease;
+        }
+        .footer-logos img:hover {
+            transform: scale(1.1);
+        }
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            -webkit-transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            -webkit-transform-style: preserve-3d;
+        }
+        .social-icon:hover {
+            background: rgba(255,255,255,0.2);
+            transform: rotateY(180deg) translateZ(10px);
+            -webkit-transform: rotateY(180deg) translateZ(10px);
+        }
+        .copyright {
+            width: 100%;
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0;
+            animation: fadeIn 1s ease 0.5s forwards;
+            -webkit-animation: fadeIn 1s ease 0.5s forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @-webkit-keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;z-index: 2001; display: none; backdrop-filter: blur(3px); 
+        }
+        .modal:target {
+            display: block;
+            animation: fadeIn 0.3s;
+            -webkit-animation: fadeIn 0.3s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @-webkit-keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .modal-overlay {
+            position: absolute; width: 100%; height: 100%;background: rgba(0,0,0,0.6);cursor: pointer;transition: background 0.3s;
+        }
+        .close-btn {
+            position: absolute; top: 12px; right: 18px; font-size: 24px; color: #999; text-decoration: none; transition: color 0.2s, transform 0.2s; z-index: 2002;
+        }
+        .close-btn:hover {
+            color: #b32d2d;
+            transform: rotate(90deg);
+            -webkit-transform: rotate(90deg);
+        }
+        .modal-content {
+            position: absolute;  top: 50%; left: 50%;   transform: translate(-50%, -50%);  background: #fff;  padding: 30px; border-radius: 12px;  box-shadow: 0 10px 30px rgba(0,0,0,0.2);   width: 380px; max-width: 90%;z-index: 2002; transition: all 0.3s;
+            animation: modalSlideIn 0.5s;
+            -webkit-animation: modalSlideIn 0.5s;
+        }
+        @keyframes modalSlideIn {
+            from { 
+                transform: translate(-50%, -60%);
+                opacity: 0;
+            }
+            to { 
+                transform: translate(-50%, -50%);
+                opacity: 1;
+            }
+        }
+        @-webkit-keyframes modalSlideIn {
+            from { 
+                transform: translate(-50%, -60%);
+                opacity: 0;
+            }
+            to { 
+                transform: translate(-50%, -50%);
+                opacity: 1;
+            }
+        }
+        .modal-content:hover {
+            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+        }
+        .modal-title {
+            text-align: center;  color: #b32d2d;  margin-bottom: 25px;  font-size: 22px; display: flex; align-items: center; justify-content: center;gap: 10px;
+        }
+        .modal-title i {
+            font-size: 24px;
+        }
+        form fieldset {
+            border: none; padding: 0; margin: 0;
+        }
+        form legend {
+            display: none; 
+        }
+        .form-group {
+            margin-bottom: 20px; position: relative;
+        }
+        .form-group label {
+            display: block; margin-bottom: 8px;  color: #666;font-size: 14px; font-weight: 500;
+        }
+        .form-group .input-wrapper {
+            position: relative;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;  padding: 12px 15px 12px 40px;  border: 1px solid #ddd;   border-radius: 6px;   font-size: 15px;transition: all 0.3s;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+        .form-group textarea {
+            padding: 15px; min-height: 100px;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;  border-color: #b32d2d;  box-shadow: 0 0 0 3px rgba(179,45,45,0.1);
+            transform: translateZ(5px);
+            -webkit-transform: translateZ(5px);
+        }
+        .form-group input::placeholder {
+            color: #bbb;  font-size: 14px;
+        }
+        .form-icon {
+            position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #999; font-size: 18px;  transition: color 0.3s;
+        }
+        .form-group input:focus + .form-icon {
+            color: #b32d2d;
+        }
+        .form-group input[type="checkbox"],
+        .form-group input[type="radio"] {
+            width: auto; margin-right: 8px; vertical-align: middle; position: relative; top: -1px;
+        }
+        .remember-group {
+            display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px;
+        }
+        .remember-group label {
+            display: inline-flex; align-items: center; margin-bottom: 0;cursor: pointer;
+        }
+        .forgot-link {
+            color: #b32d2d;  font-size: 14px;transition: color 0.2s;
+        }
+        .forgot-link:hover {
+            color: #992424; text-decoration: underline;
+        }
+        .radio-group, .checkbox-group {
+            display: flex;  gap: 15px;  margin-top: 8px;  flex-wrap: wrap;
+        }
+        .radio-group label,
+        .checkbox-group label {
+            display: flex; align-items: center; gap: 6px; cursor: pointer; color: #666;   font-size: 14px; padding: 5px 10px; border-radius: 4px; transition: background 0.2s;
+        }
+        .radio-group label:hover,
+        .checkbox-group label:hover {
+            background: #fef7f7;
+        }
+        .form-group .btn-group {
+            display: flex; align-items: center;  justify-content: center;  margin-top: 20px; width: 100%; padding: 0 ;
+        }
+        .switch-link {
+            color: #b32d2d;  text-decoration: none;   font-size: 14px;   transition: color 0.2s; display: flex; align-items: center;  gap: 5px;
+        }
+        .switch-link i {
+            font-size: 12px;
+        }
+        .switch-link:hover {
+            color: #992424; text-decoration: underline;
+        }
+        .form-actions {
+            display: flex;  gap: 10px;  margin-top: 20px; justify-content: center;
+        }
+        .submit-btn {
+            display: block; margin: 0 auto;
+            background: #b32d2d; color: #fff; padding: 10px 100px; border: none; border-radius: 6px; cursor: pointer; transition: all 0.3s; font-size: 15px; font-weight: 500; box-shadow: 0 2px 5px rgba(179,45,45,0.2);
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+        .submit-btn:hover {
+            background: #992424; transform: translateY(-2px) translateZ(10px); box-shadow: 0 4px 8px rgba(179,45,45,0.3);
+            -webkit-transform: translateY(-2px) translateZ(10px);
+        }
+        .reset-btn {
+            background: #fce8e8; color: #b32d2d; padding: 10px 25px;  border: 1px solid #b32d2d;  border-radius: 6px;  cursor: pointer;  transition: all 0.3s; font-size: 15px;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+        .reset-btn:hover {
+            background: #f8e0e0; transform: translateY(-2px);
+            -webkit-transform: translateY(-2px);
+        }
+        .required {
+            color: #ff4d4d; margin-left: 3px;
+        }
+        .form-row {
+            display: flex;  gap: 15px;  margin-bottom: 20px;
+        }
+        .form-group.full-width {
+            flex: 1;
+        }
+        .subscribe-modal .modal-content {
+            width: 550px;  max-width: 90%;
+        }
+        .subscribe-form .form-group {
+            margin-bottom: 18px;
+        }
+        .subscribe-form .form-group label {
+            font-weight: 500;
+        }
+        .message-toast {
+            position: fixed;  top: 70px; left: 50%;  transform: translateX(-50%); background: rgba(0,0,0,0.85);   color: white;  padding: 10px 20px;  border-radius: 4px;  z-index: 3000;  display: none;  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .loading-mask {
+            position: fixed;  top: 0;  left: 0;   width: 100%;  height: 100%; background: rgba(255,255,255,0.8);   display: none; align-items: center; justify-content: center;  z-index: 4000;    border-radius: 4px;
+        }
+        .loading-spinner {
+            width: 50px;  height: 50px; border: 5px solid #fce8e8; border-top: 5px solid #b32d2d; border-radius: 50%;  animation: spin 1s linear infinite;
+            -webkit-animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @-webkit-keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @media (max-width: 1024px) {
+            .main-container {
+                flex-direction: column;gap: 20px;
+            }
+            .left-column, .middle-column, .right-column {
+                width: 100%;
+            }
+            .card {
+                width: 48%;
+            }
+            .editor-carousel-item {
+                min-width: calc(50% - 10px);
+            }
+            .carousel-3d-container {
+                height: 250px;
+            }
+            .carousel-3d-item {
+                width: 150px;
+                height: 200px;
+                margin: -100px 0 0 -75px;
+            }
+            .carousel-3d-item:nth-child(1) { transform: rotateY(0deg) translateZ(250px); }
+            .carousel-3d-item:nth-child(2) { transform: rotateY(45deg) translateZ(250px); }
+            .carousel-3d-item:nth-child(3) { transform: rotateY(90deg) translateZ(250px); }
+            .carousel-3d-item:nth-child(4) { transform: rotateY(135deg) translateZ(250px); }
+            .carousel-3d-item:nth-child(5) { transform: rotateY(180deg) translateZ(250px); }
+            .carousel-3d-item:nth-child(6) { transform: rotateY(225deg) translateZ(250px); }
+            .carousel-3d-item:nth-child(7) { transform: rotateY(270deg) translateZ(250px); }
+            .carousel-3d-item:nth-child(8) { transform: rotateY(315deg) translateZ(250px); }
+        }
+        @media (max-width: 768px) {
+            .card {
+                width: 100%;
+            }
+            .editor-carousel-item {
+                min-width: 100%;
+            }
+            .editor-recommend {
+                flex-direction: column;  text-align: center;
+            }
+            .search-box {
+                position: fixed;  top: 60px;  left: 0;  width: 100%;  background: #b32d2d; padding: 10px 20px;  z-index: 999;   margin-left: 0;
+            }
+            .user-actions {
+                position: absolute;   right: 20px;  
+            }
+            body {
+                padding-top: 110px;
+            }
+            .form-row {
+                flex-direction: column;  gap: 0;
+            }
+            .modal-content {
+                width: 90%;
+                padding: 20px;
+            }
+            .subscribe-modal .modal-content {                width: 90%;
+            }
+            .carousel-3d-container {
+                height: 200px;
+            }
+            .carousel-3d-item {
+                width: 120px;
+                height: 160px;
+                margin: -80px 0 0 -60px;
+            }
+            .carousel-3d-item img {
+                width: 80px;
+                height: 100px;
+            }
+            .carousel-3d-item:nth-child(1) { transform: rotateY(0deg) translateZ(200px); }
+            .carousel-3d-item:nth-child(2) { transform: rotateY(45deg) translateZ(200px); }
+            .carousel-3d-item:nth-child(3) { transform: rotateY(90deg) translateZ(200px); }
+            .carousel-3d-item:nth-child(4) { transform: rotateY(135deg) translateZ(200px); }
+            .carousel-3d-item:nth-child(5) { transform: rotateY(180deg) translateZ(200px); }
+            .carousel-3d-item:nth-child(6) { transform: rotateY(225deg) translateZ(200px); }
+            .carousel-3d-item:nth-child(7) { transform: rotateY(270deg) translateZ(200px); }
+            .carousel-3d-item:nth-child(8) { transform: rotateY(315deg) translateZ(200px); }
+        }
+        .flip-card-back {
+            padding: 12px;
+        }
+
+        .book-details {
+            -webkit-line-clamp: 4; /* 增加可显示行数 */
+        }
+    </style>
+</head>
+<body>
+    <header class="header-top">
+        <div class="top-nav">
+            <div class="location">
+                送至：<span>北京</span> <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="welcome-message">
+                欢迎光临叶语书斋，请<a href="#login-modal" class="login-link">登录</a> 成为会员
+            </div>
+            <div class="top-menu">
+                <a href="#">购物车0</a> |
+                <a href="#">我的订单</a> |
+                <a href="#">我的云书房</a> |
+                <a href="#">我的叶语</a> <i class="fa-solid fa-chevron-down"></i> |
+                <a href="#">叶语拼团</a> <i class="fa-solid fa-chevron-down"></i> |
+                <a href="#">小说投稿</a> |
+                <a href="#">企业采购</a> <i class="fa-solid fa-chevron-down"></i> |
+                <a href="#">客户服务</a> <i class="fa-solid fa-chevron-down"></i> |
+                <a href="#">切换无障碍</a> |
+                <a href="#">进入关怀版</a>
+            </div>
+        </div>
+        <div class="main-header">
+            <div class="logo">
+                <a href="#">🍁 叶语书斋</a>
+            </div>
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="搜索图书/作者/..."  />
+                    <select class="category-select">
+                        <option value="">全部分类</option>
+                        <option value="literature">文学小说</option>
+                        <option value="science">科技前沿</option>
+                        <option value="children">儿童读物</option>
+                        <option value="history">历史传记</option>
+                    </select>
+                    <button class="search-btn">🔍</button>
+                </div>
+                <div class="hot-searches">
+                    <span>热搜：</span>
+                    <a href="#">河边的错误</a>
+                    <a href="#">生死疲劳</a>
+                    <a href="#">平凡的世界</a>
+                    <a href="#">蛙</a>
+                    <a href="#">活着</a>
+                    <a href="#">9.9元包邮</a>
+                    <a href="#subscribe-modal" class="advanced-search">个性化推荐</a>
+                </div>
+            </div>
+            <div class="header-actions">
+                <a href="#" class="cart-btn">🛒 购物车0</a>
+                <a href="#" class="orders-btn">我的订单</a>
+            </div>
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#">首页</a></li>
+                <li>
+                    <a href="#">图书分类</a>
+                    <ul class="submenu">
+                        <li><a href="#">文学小说</a></li>
+                        <li><a href="#">科技前沿</a></li>
+                        <li><a href="#">儿童读物</a></li>
+                        <li><a href="#">历史传记</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">热门推荐</a>
+                    <ul class="submenu">
+                        <li><a href="#">月度畅销</a></li>
+                        <li><a href="#">新书热卖</a></li>
+                        <li><a href="#">经典重读</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">限时促销</a>
+                    <ul class="submenu">
+                        <li><a href="#">今日特惠</a></li>
+                        <li><a href="#">满减活动</a></li>
+                        <li><a href="#">组合优惠</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">我的书架</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="modal login-modal" id="login-modal">
+        <a href="#" class="modal-overlay"></a>
+        <div class="modal-content">
+            <a href="#" class="close-btn">&times;</a>
+            <h3 class="modal-title">
+                <i class="fa-solid fa-right-to-bracket"></i>用户登录
+            </h3>
+            <form id="loginForm" action="#" method="post">
+                <div class="form-group full-width">
+                    <label for="loginUser">用户名</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="loginUser" name="loginUser" placeholder="请输入邮箱或用户名" required>
+                        <i class="fa-solid fa-user form-icon"></i>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label for="loginPwd">密码</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="loginPwd" name="loginPwd" placeholder="请输入密码" required>
+                        <i class="fa-solid fa-lock form-icon"></i>
+                    </div>
+                </div>
+                <div class="remember-group">
+                    <label for="remember">
+                        <input type="checkbox" id="remember" name="remember">
+                        记住我
+                    </label>
+                    <a href="#" class="forgot-link">忘记密码？</a>
+                </div>
+                <div class="form-group btn-group">
+                    <button type="submit" class="submit-btn">登录</button>
+                    <a href="#register-modal" class="switch-link register-switch">
+                        <i class="fa-solid fa-user-plus"></i>没有账号？立即注册
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal register-modal" id="register-modal">
+        <a href="#" class="modal-overlay"></a>
+        <div class="modal-content">
+            <a href="#" class="close-btn">&times;</a>
+            <h3 class="modal-title">
+                <i class="fa-solid fa-user-plus"></i>用户注册
+            </h3>
+            <form id="registerForm" action="#" method="post">
+                <div class="form-group full-width">
+                    <label for="regUser">用户名 <span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <input type="text" id="regUser" name="regUser" placeholder="请设置用户名（3-16位字符）" required>
+                        <i class="fa-solid fa-id-card form-icon"></i>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label for="regEmail">邮箱 <span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <input type="email" id="regEmail" name="regEmail" placeholder="请输入常用邮箱" required>
+                        <i class="fa-solid fa-envelope form-icon"></i>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label for="regPwd">密码 <span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <input type="password" id="regPwd" name="regPwd" placeholder="请设置密码（不少于6位，含字母和数字）" required>
+                        <i class="fa-solid fa-lock form-icon"></i>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label for="regPwdConfirm">确认密码 <span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <input type="password" id="regPwdConfirm" name="regPwdConfirm" placeholder="请再次输入密码" required>
+                        <i class="fa-solid fa-lock-open form-icon"></i>
+                    </div>
+                </div>
+                <div class="form-group btn-group">
+                    <button type="submit" class="submit-btn">注册</button>
+                    <a href="#login-modal" class="switch-link login-switch">
+                        <i class="fa-solid fa-right-to-bracket"></i>已有账号？登录
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal subscribe-modal" id="subscribe-modal">
+        <a href="#" class="modal-overlay"></a>
+        <div class="modal-content">
+            <a href="#" class="close-btn">&times;</a>
+            <h3 class="modal-title">
+                <i class="fa-solid fa-book-open"></i>图书推荐订阅
+            </h3>
+            <form id="subscribeForm" class="subscribe-form">
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label for="subName">用户名 <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <input type="text" id="subName" name="subName" placeholder="请输入您的昵称" required>
+                            <i class="fa-solid fa-user form-icon"></i>
+                        </div>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="subEmail">邮箱 <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <input type="email" id="subEmail" name="subEmail" placeholder="请输入您的邮箱" required>
+                            <i class="fa-solid fa-envelope form-icon"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>性别</label>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="gender" value="male" checked> 男
+                        </label>
+                        <label>
+                            <input type="radio" name="gender" value="female"> 女
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>图书分类 <span class="required">*</span></label>
+                    <div class="checkbox-group">
+                        <label>
+                            <input type="checkbox" name="categories" value="literature"> 文学小说
+                        </label>
+                        <label>
+                            <input type="checkbox" name="categories" value="science"> 科技前沿
+                        </label>
+                        <label>
+                            <input type="checkbox" name="categories" value="history"> 历史传记
+                        </label>
+                        <label>
+                            <input type="checkbox" name="categories" value="psychology"> 心理学
+                        </label>
+                        <label>
+                            <input type="checkbox" name="categories" value="children"> 儿童读物
+                        </label>
+                        <label>
+                            <input type="checkbox" name="categories" value="art"> 艺术设计
+                        </label>
+                        <label>
+                            <input type="checkbox" name="categories" value="programming"> 编程开发
+                        </label>
+                        <label>
+                            <input type="checkbox" name="categories" value="philosophy">哲学思考
+                        </label>                      
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label for="city">所在城市</label>
+                        <select id="city" name="city">
+                            <option value="">请选择城市</option>
+                            <option value="yantai">烟台</option>
+                            <option value="beijing">北京</option>
+                            <option value="shanghai">上海</option>
+                            <option value="guangzhou">广州</option>
+                            <option value="shenzhen">深圳</option>
+                            <option value="hangzhou">杭州</option>
+                            <option value="other">其他城市</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="frequency">推送频率</label>
+                        <select id="frequency" name="frequency">
+                            <option value="daily">每日一次</option>
+                            <option value="weekly" selected>每周一次</option>
+                            <option value="monthly">每月一次</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="message">个性化需求</label>
+                    <textarea id="message" name="message" rows="3" placeholder="请告诉我们您的阅读偏好，我们会为您提供更精准的推荐..."></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn">确认订阅</button>
+                    <button type="reset" class="reset-btn">重置</button>  
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="cart-float">
+        🛒
+        <span class="cart-count">0</span>
+    </div>
+    <div class="back-to-top">↑</div>
+    <div class="message-toast"></div>
+    <div class="loading-mask">
+        <div class="loading-spinner"></div>
+        <p style="margin-top: 15px; color: #b32d2d;">加载中...</p>
+    </div>
+    <main class="main-container">
+        <aside class="left-column">
+            <div class="category-title">
+                <h2>图书分类</h2>
+                <ul class="category-nav">
+                    <li><i class="fa-solid fa-book"></i><a href="#">文学小说</a></li> 
+                    <li><i class="fa-solid fa-microchip"></i><a href="#">科技前沿</a></li> 
+                    <li><i class="fa-solid fa-child"></i><a href="#">儿童读物</a></li> 
+                    <li><i class="fa-solid fa-scroll"></i><a href="#">历史传记</a></li> 
+                    <li><i class="fa-solid fa-palette"></i><a href="#">生活艺术</a></li> 
+                    <li><i class="fa-solid fa-laptop-code"></i><a href="#">编程开发</a></li>
+                    <li><i class="fa-solid fa-brain"></i><a href="#">心理励志</a></li> 
+                    <li><i class="fa-solid fa-landmark"></i><a href="#">历史文化</a></li> 
+                    <li><i class="fa-solid fa-rocket"></i><a href="#">科幻小说</a></li> 
+                    <li><i ></i></li>
+                </ul>  
+            </div>
+
+            <form class="filter-form">
+                <div class="filter-group">
+                    <label class="filter-label">
+                        <i class="fa-solid fa-tags"></i>价格筛选
+                    </label>
+                    <select class="filter-select" name="price">
+                        <option value="">全部价格</option>
+                        <option value="0-50">0-50元</option>
+                        <option value="50-100">50-100元</option>
+                        <option value="100+">100元以上</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">
+                        <i class="fa-solid fa-fire"></i>销量筛选
+                    </label>
+                    <select class="filter-select" name="sales">
+                        <option value="">全部销量</option>
+                        <option value="50000+">五万本以上</option>
+                        <option value="10000-50000">一万到五万本</option>
+                        <option value="5000-10000">五千到一万本</option>
+                        <option value="0-5000">零到五千本</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">
+                        <i class="fa-solid fa-calendar-alt"></i>出版时间
+                    </label>
+                    <select class="filter-select" name="publishTime">
+                        <option value="">全部时间</option>
+                        <option value="3month">近3个月</option>
+                        <option value="6month">近半年</option>
+                        <option value="1year">近一年</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">
+                        <i class="fa-solid fa-globe"></i>出版国家
+                    </label>
+                    <select class="filter-select" name="country">
+                        <option value="">全部国家</option>
+                        <option value="cn">中国大陆</option>
+                        <option value="jp">日本</option>
+                        <option value="uk">英国</option>
+                        <option value="us">美国</option>
+                        <option value="ru">俄罗斯</option>
+                    </select>
+                </div>
+                <button type="submit" class="filter-submit">
+                    <i class="fa-solid fa-filter"></i>应用筛选
+                </button>
+            </form>
+
+            <div class="promo-list">
+                <h3>今日特惠</h3>
+                <ul>
+                    <li>编程书籍 <span>5折</span></li>
+                    <li>儿童绘本 <span>买一赠一</span></li>
+                    <li>文学经典 <span>满100减30</span></li>
+                    <li>历史传记 <span>7折起</span></li>
+                    <li>心理书籍 <span>8折</span></li>
+                    <li>旅游指南 <span>满50减10</span></li>
+                    <li>健康养生 <span>6折</span></li>
+                    <li>艺术设计 <span>满五十领10元券</span></li>
+                    <li>青春文学 <span>新品上市</span></li>
+                </ul>
+            </div>
+            <div class="service-box">
+                <h4>客服中心</h4>
+                <p>📞 123-456-7890</p>
+                <p>🕒 9:00-22:00</p>
+                <p>🏠 烟台市芝罘区鲁东大学</p>
+                <p>✉️ service@yeyu.com</p>
+            </div>
+        </aside>
+        <section class="middle-column">
+            <div class="banner">
+                <div class="carousel">
+                    <div class="carousel-item">
+                        <img src="/images/新书抢先看.png" alt="新书上市1" />
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/images/全民阅读.jpg" alt="新书上市2" />
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/images/长安的荔枝.jpg" alt="新书上市3" />
+                    </div>
+                </div>
+                <button class="carousel-control prev">←</button>
+                <button class="carousel-control next">→</button>
+                <div class="carousel-indicators">
+                    <span class="indicator active" data-index="0"></span>
+                    <span class="indicator" data-index="1"></span>
+                    <span class="indicator" data-index="2"></span>
+                </div>
+            </div>
+
+            <div class="editor-recommend-carousel">
+                <div class="editor-carousel-header">
+                    <h3 class="editor-carousel-title">编辑力荐</h3>
+                    <a href="#" class="editor-carousel-more">查看全部 →</a>
+                </div>
+                <div class="editor-carousel-track">
+                    <div class="editor-carousel-item">
+                        <div class="book-cover-container">
+                            <span class="book-tag">编辑力荐</span>
+                            <div class="flip-card">
+                                <div class="flip-card-front">
+                                    <img src="/images/长安的荔枝书籍封面.jpg" alt="长安的荔枝" class="book-cover" />
+                                    <div class="book-info">
+                                        <h4>《长安的荔枝》</h4>
+                                        <p class="book-author">作者：马伯庸</p>
+                                    </div>
+                                </div>
+                                <div class="flip-card-back">
+                                    <div class="book-price">¥59.00</div>
+                                    <div class="book-rating">★★★★★</div>
+                                    <p class="book-details">大唐小吏的荔枝转运记，藏着小人物的生存智慧与职场哲学。五千里荔枝速递藏大唐烟火，职场博弈与人性微光交织，读来酣畅又耐品。</p>
+                                    <div class="book-actions">
+                                        <button class="read-btn">试读</button>
+                                        <button class="add-btn">加入书架</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="editor-carousel-item">
+                        <div class="book-cover-container">
+                            <span class="book-tag">爆款新书</span>
+                            <div class="flip-card">
+                                <div class="flip-card-front">
+                                    <img src="/images/河边的错误.jpg" alt="河边的错误" class="book-cover" />
+                                    <div class="book-info">
+                                        <h4>《河边的错误》</h4>
+                                        <p class="book-author">作者：余华</p>
+                                    </div>
+                                </div>
+                                <div class="flip-card-back">
+                                    <div class="book-price">¥59.00</div>
+                                    <div class="book-rating">★★★★☆</div>
+                                    <p class="book-details">余华经典悬疑之作，荒诞与现实交织的人性探索。小说通过一起离奇的命案，揭示了人性的复杂与荒诞。</p>
+                                    <div class="book-actions">
+                                        <button class="read-btn">试读</button>
+                                        <button class="add-btn">加入书架</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="editor-carousel-item">
+                        <div class="book-cover-container">
+                            <span class="book-tag">必读书单</span>
+                            <div class="flip-card">
+                                <div class="flip-card-front">
+                                    <img src="/images/霍乱时期的爱情.jpg" alt="霍乱时期的爱情" class="book-cover" />
+                                    <div class="book-info">
+                                        <h4>《霍乱时期的爱情》</h4>
+                                        <p class="book-author">作者：加西亚·马尔克斯</p>
+                                    </div>
+                                </div>
+                                <div class="flip-card-back">
+                                    <div class="book-price">¥66.00</div>
+                                    <div class="book-rating">★★★★★</div>
+                                    <p class="book-details">跨越半个世纪的爱情史诗，穷尽所有爱情的可能性。马尔克斯笔下，爱情与时间交织，展现生命的全部意义。</p>
+                                    <div class="book-actions">
+                                        <button class="read-btn">试读</button>
+                                        <button class="add-btn">加入书架</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="editor-carousel-item">
+                        <div class="book-cover-container">
+                            <span class="book-tag">年度精选</span>
+                            <div class="flip-card">
+                                <div class="flip-card-front">
+                                    <img src="/images/鳄鱼.jpg" alt="鳄鱼" class="book-cover" />
+                                    <div class="book-info">
+                                        <h4>《鳄鱼》</h4>
+                                        <p class="book-author">作者：莫言</p>
+                                    </div>
+                                </div>
+                                <div class="flip-card-back">
+                                    <div class="book-price">¥59.00</div>
+                                    <div class="book-rating">★★★★☆</div>
+                                    <p class="book-details">莫言最新力作，以荒诞笔触映射现实社会的众生相。小说通过一个荒诞的故事，揭示了人性的复杂与社会的荒诞。</p>
+                                    <div class="book-actions">
+                                        <button class="read-btn">试读</button>
+                                        <button class="add-btn">加入书架</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="editor-carousel-item">
+                        <div class="book-cover-container">
+                            <span class="book-tag">科幻经典</span>
+                            <div class="flip-card">
+                                <div class="flip-card-front">
+                                    <img src="/images/三体.jpg" alt="三体" class="book-cover" />
+                                    <div class="book-info">
+                                        <h4>《三体》</h4>
+                                        <p class="book-author">作者：刘慈欣</p>
+                                    </div>
+                                </div>
+                                <div class="flip-card-back">
+                                    <div class="book-price">¥88.00</div>
+                                    <div class="book-rating">★★★★★</div>
+                                    <p class="book-details">中国科幻的里程碑之作，构建宏大的宇宙文明图景。小说通过一个宏大的宇宙故事，探讨了人类文明的命运与未来。</p>
+                                    <div class="book-actions">
+                                        <button class="read-btn">试读</button>
+                                        <button class="add-btn">加入书架</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 复制一份轮播项确保无限滚动效果 -->
+                    <div class="editor-carousel-item">
+                        <div class="book-cover-container">
+                            <span class="book-tag">编辑力荐</span>
+                            <div class="flip-card">
+                                <div class="flip-card-front">
+                                    <img src="/images/长安的荔枝书籍封面.jpg" alt="长安的荔枝" class="book-cover" />
+                                    <div class="book-info">
+                                        <h4>《长安的荔枝》</h4>
+                                        <p class="book-author">作者：马伯庸</p>
+                                    </div>
+                                </div>
+                                <div class="flip-card-back">
+                                    <div class="book-price">¥59.00</div>
+                                    <div class="book-rating">★★★★★</div>
+                                    <p class="book-details">大唐小吏的荔枝转运记，藏着小人物的生存智慧与职场哲学。五千里荔枝速递藏大唐烟火，职场博弈与人性微光交织，读来酣畅又耐品。</p>
+                                    <div class="book-actions">
+                                        <button class="read-btn">试读</button>
+                                        <button class="add-btn">加入书架</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="editor-carousel-item">
+                        <div class="book-cover-container">
+                            <span class="book-tag">爆款新书</span>
+                            <div class="flip-card">
+                                <div class="flip-card-front">
+                                    <img src="/images/河边的错误.jpg" alt="河边的错误" class="book-cover" />
+                                    <div class="book-info">
+                                        <h4>《河边的错误》</h4>
+                                        <p class="book-author">作者：余华</p>
+                                    </div>
+                                </div>
+                                <div class="flip-card-back">
+                                    <div class="book-price">¥59.00</div>
+                                    <div class="book-rating">★★★★☆</div>
+                                    <p class="book-details">余华经典悬疑之作，荒诞与现实交织的人性探索。小说通过一起离奇的命案，揭示了人性的复杂与荒诞。</p>
+                                    <div class="book-actions">
+                                        <button class="read-btn">试读</button>
+                                        <button class="add-btn">加入书架</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="editor-carousel-item">
+                        <div class="book-cover-container">
+                            <span class="book-tag">必读书单</span>
+                            <div class="flip-card">
+                                <div class="flip-card-front">
+                                    <img src="/images/霍乱时期的爱情.jpg" alt="霍乱时期的爱情" class="book-cover" />
+                                    <div class="book-info">
+                                        <h4>《霍乱时期的爱情》</h4>
+                                        <p class="book-author">作者：加西亚·马尔克斯</p>
+                                    </div>
+                                </div>
+                                <div class="flip-card-back">
+                                    <div class="book-price">¥66.00</div>
+                                    <div class="book-rating">★★★★★</div>
+                                    <p class="book-details">跨越半个世纪的爱情史诗，穷尽所有爱情的可能性。马尔克斯笔下，爱情与时间交织，展现生命的全部意义。</p>
+                                    <div class="book-actions">
+                                        <button class="read-btn">试读</button>
+                                        <button class="add-btn">加入书架</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="editor-carousel-control prev">←</button>
+                <button class="editor-carousel-control next">→</button>
+                <div class="editor-carousel-indicators">
+                    <span class="editor-indicator active" data-index="0"></span>
+                    <span class="editor-indicator" data-index="1"></span>
+                    <span class="editor-indicator" data-index="2"></span>
+                </div>
+            </div>
+
+            <div class="hot-section">
+                <h3>热门推荐 <a href="#" class="more-link">查看更多 →</a></h3>
+                
+                <!-- 3D环形图书展示 -->
+                <div class="carousel-3d-container">
+                    <div class="carousel-3d">
+                        <div class="carousel-3d-item">
+                            <img src="/images/红与黑.jpg" alt="红与黑" />
+                            <h4>《红与黑》</h4>
+                            <div class="price">¥66.00</div>
+                        </div>
+                        <div class="carousel-3d-item">
+                            <img src="/images/人间失格.jpg" alt="人间失格" />
+                            <h4>《人间失格》</h4>
+                            <div class="price">¥66.00</div>
+                        </div>
+                        <div class="carousel-3d-item">
+                            <img src="/images/苦难辉煌.jpg" alt="苦难辉煌" />
+                            <h4>《苦难辉煌》</h4>
+                            <div class="price">¥66.00</div>
+                        </div>
+                        <div class="carousel-3d-item">
+                            <img src="/images/百年孤独.jpg" alt="百年孤独" />
+                            <h4>《百年孤独》</h4>
+                            <div class="price">¥72.00</div>
+                        </div>
+                        <div class="carousel-3d-item">
+                            <img src="/images/活着.jpg" alt="活着" />
+                            <h4>《活着》</h4>
+                            <div class="price">¥45.00</div>
+                        </div>
+                        <div class="carousel-3d-item">
+                            <img src="/images/围城.jpg" alt="围城" />
+                            <h4>《围城》</h4>
+                            <div class="price">¥58.00</div>
+                        </div>
+                        <div class="carousel-3d-item">
+                            <img src="/images/平凡的世界.jpg" alt="平凡的世界" />
+                            <h4>《平凡的世界》</h4>
+                            <div class="price">¥128.00</div>
+                        </div>
+                        <div class="carousel-3d-item">
+                            <img src="/images/白夜行.jpg" alt="白夜行" />
+                            <h4>《白夜行》</h4>
+                            <div class="price">¥59.00</div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+            <div class="new-section">
+                <h3>新书上市 <a href="#" class="more-link">查看更多 →</a></h3>
+                <table class="new-table">
+                    <thead>
+                        <tr>
+                            <th>书名</th>
+                            <th>作者</th>
+                            <th>价格</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>《河边的错误》</td>
+                            <td>余华</td>
+                            <td>¥59.00</td>
+                            <td><a href="#" class="detail-link">查看详情</a></td>
+                        </tr>
+                        <tr>
+                            <td>《霍乱时期的爱情》</td>
+                            <td>加西亚·马尔克斯</td>
+                            <td>¥66.00</td>
+                            <td><a href="#" class="detail-link">查看详情</a></td>
+                        </tr>
+                        <tr>
+                            <td>《鳄鱼》</td>
+                            <td>莫言</td>
+                            <td>¥59.00</td>
+                            <td><a href="#" class="detail-link">查看详情</a></td>
+                        </tr>
+                        <tr>
+                            <td>《时间的秩序》</td>
+                            <td>卡洛·罗韦利</td>
+                            <td>¥72.00</td>
+                            <td><a href="#" class="detail-link">查看详情</a></td>
+                        </tr>
+                        <tr>
+                            <td>《未来简史》</td>
+                            <td>尤瓦尔·赫拉利</td>
+                            <td>¥68.00</td>
+                            <td><a href="#" class="detail-link">查看详情</a></td>
+                        </tr>
+                        <tr>
+                            <td>《三体》</td>
+                            <td>刘慈欣</td>
+                            <td>¥68.00</td>
+                            <td><a href="#" class="detail-link">查看详情</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <aside class="right-column">
+            <div class="promo-banner">
+                <img src="/images/新用户有礼.png" alt="新用户有礼" />
+                <p>新用户注册即享专属优惠！</p>
+                <a href="#" class="btn">立即领取</a>
+                <p>活动时间：2025.10.01 - 2025.10.31</p>
+            </div>
+            <div class="promo-banner">
+                <img src="/images/双十一.png" alt="双十一" />
+                <p>双十一购物节，尽享全场特惠！</p>
+                <a href="#" class="btn">立即抢购</a>
+                <p>活动时间：2025.11.01 - 2025.11.11</p>
+            </div>
+            <div class="author-section">
+                <h3>热门作者推荐</h3>
+                <div class="author-list">
+                    <div class="author-item">
+                        <img src="/images/余华.jpg" alt="余华" class="author-avatar" />
+                        <div class="author-info">
+                            <h4>余华</h4>
+                            <p class="author-desc">中国当代作家，代表作《活着》《许三观卖血记》《兄弟》《一起游到海水变蓝》《呐喊与细雨》《星星》</p>
+                        </div>
+                    </div>
+                    <div class="author-item">
+                        <img src="/images/加西亚.jpg" alt="加西亚·马尔克斯" class="author-avatar" />
+                        <div class="author-info">
+                            <h4>加西亚·马尔克斯</h4>
+                            <p class="author-desc">哥伦比亚作家，魔幻现实主义代表，著《百年孤独》《霍乱时期的爱情》《世上最美的溺水者》《活着为了讲述》</p>
+                        </div>
+                    </div>
+                    <div class="author-item">
+                        <img src="/images/莫言.jpg" alt="莫言" class="author-avatar" />
+                        <div class="author-info">
+                            <h4>莫言</h4>
+                            <p class="author-desc">诺贝尔文学奖得主，代表作《红高粱》《蛙》《生死疲劳》《酒国》《不被大风吹倒》</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="review-section">
+                <h3>读者真实好评</h3>
+                <div class="review-list">
+                    <div class="review-item">
+                        <div class="review-header">
+                            <img src="/images/user1.jpg" alt="用户头像" class="user-avatar" />
+                            <span class="user-name">书虫小A</span>
+                            <span class="review-rating">★★★★★</span>
+                        </div>
+                        <p class="review-content">《红与黑》的人物塑造太深刻了，于连的挣扎与野心让人共情，翻译也很流畅，值得反复读！</p>
+                        <p class="review-book">评价图书：《红与黑》</p>
+                    </div>
+                    <div class="review-item">
+                        <div class="review-header">
+                            <img src="/images/user2.jpg" alt="用户头像" class="user-avatar" />
+                            <span class="user-name">深夜读书人</span>
+                            <span class="review-rating">★★★★☆</span>
+                        </div>
+                        <p class="review-content">太宰治的《人间失格》文字细腻到扎心，太宰治对人性的洞察太透彻了，适合安静的时候慢慢读。</p>
+                        <p class="review-book">评价图书：《人间失格》</p>
+                    </div>
+                    <div class="review-item">
+                        <div class="review-header">
+                            <img src="/images/user3.jpg" alt="用户头像" class="user-avatar" />
+                            <span class="user-name">历史爱好者</span>
+                            <span class="review-rating">★★★★★</span>
+                        </div>
+                        <p class="review-content">金一南的《苦难辉煌》把党史讲得生动又深刻，史料翔实，语言有力量，读起来很有共鸣！</p>
+                        <p class="review-book">评价图书：《苦难辉煌》</p>
+                    </div>
+                    <div class="review-item">
+                        <div class="review-header">
+                            <img src="/images/嘴平伊之助.jpg" alt="用户头像" class="user-avatar" />
+                            <span class="user-name">我爱读书</span>
+                            <span class="review-rating">★★★★★</span>
+                        </div>
+                        <p class="review-content">在《长安的荔枝》中，马伯庸以荔枝转运写透职场生存，情节紧凑诙谐，小人物的变通与坚守极具共鸣。</p>
+                        <p class="review-book">评价图书：《长安的荔枝》</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+    <!-- 顶部服务栏 -->
+        <div class="footer-services">
+            <div class="service-item">
+                <div class="service-icon">正</div>
+                <div class="service-text">
+                    <div class="service-title">正规渠道</div>
+                    <div class="service-desc">正品保障</div>
+                </div>
+            </div>
+            <div class="service-item">
+                <div class="service-icon">车</div>
+                <div class="service-text">
+                    <div class="service-title">625城市</div>
+                    <div class="service-desc">次日达到</div>
+                </div>
+            </div>
+            <div class="service-item">
+                <div class="service-icon">换</div>
+                <div class="service-text">
+                    <div class="service-title">退换无忧</div>
+                    <div class="service-desc">购物无忧</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 中间链接区 -->
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>购物指南</h4>
+                <ul>
+                    <li>购物流程</li>
+                    <li>发票制度</li>
+                    <li>服务协议</li>
+                    <li>会员优惠</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>支付方式</h4>
+                <ul>
+                    <li>网上支付</li>
+                    <li>礼品卡支付</li>
+                    <li>银行转帐</li>
+                    <li>礼券支付</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>订单服务</h4>
+                <ul>
+                    <li>配送服务查询</li>
+                    <li>订单状态说明</li>
+                    <li>自助取消订单</li>
+                    <li>自助修改订单</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>配送方式</h4>
+                <ul>
+                    <li>当日递</li>
+                    <li>次日达</li>
+                    <li>订单自提</li>
+                    <li>验货与签收</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>退换货</h4>
+                <ul>
+                    <li>退换货服务查询</li>
+                    <li>自助申请退换货</li>
+                    <li>退换货进度查询</li>
+                    <li>退款方式和时间</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>商家服务</h4>
+                <ul>
+                    <li>商家中心</li>
+                    <li>运营服务</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 底部备案 & 认证 -->
+        <div class="footer-bottom">
+            <div class="footer-links">
+                <a href="#">公司简介</a> | 
+                <a href="#">网站联盟</a> | 
+                <a href="#">书斋招商</a> | 
+                <a href="#">机构销售</a> | 
+                <a href="#">手机书斋</a> | 
+                <a href="#">官方Blog</a> | 
+                <a href="#">知识产权</a> | 
+                <a href="#">热词搜索</a>
+            </div>
+            <div class="footer-copyright">
+                Copyright 2004 - 2024 叶语书斋网. All Rights Reserved<br>
+                京ICP证041189号 | 出版物经营许可证 新出发京批字第直0673号 | 食品经营许可证: JY11101050363440<br>
+                京ICP备17043473号-1 | 京公网安备11010502037644号 | 经营许可证编号: 合字B2-20160011 | 互联网药品信息服务资格证<br>
+                互联网违法和不良信息举报电话: 4001066666-5, 涉未成年举报电话: 4001066666-9, 邮箱: jubao@dangdang.com<br>
+                烟台叶语科文电子商务有限公司, 通信地址: 烟台市芝罘区鲁东大学
+            </div>
+            <div class="footer-logos">
+                <img src="https://via.placeholder.com/80x30" alt="首都网络安全日">
+                <img src="https://via.placeholder.com/80x30" alt="品牌官网">
+                <img src="https://via.placeholder.com/80x30" alt="不良信息举报">
+                <img src="https://via.placeholder.com/80x30" alt="可信网站">
+                <img src="https://via.placeholder.com/80x30" alt="适老化服务">
+            </div>
+        </div>
+    </footer>
+
+    <!-- 保留极简必要JS（仅回到顶部功能） -->
+    <script>
+        // 回到顶部功能
+        const backToTop = document.querySelector('.back-to-top');
+        window.addEventListener('scroll', () => {
+            backToTop.style.display = window.scrollY > 300 ? 'flex' : 'none';
+        });
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>       
